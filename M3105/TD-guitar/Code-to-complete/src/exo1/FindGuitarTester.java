@@ -3,10 +3,9 @@ package exo1;
 public class FindGuitarTester {
 
     public static void main(String[] args) {
-
         Inventory inventory = new Inventory();
         initializeInventory(inventory);
-        Guitar whatErinLikes = new Guitar("", 0, "fender", "Stratocastor", "electric", "Alder", "Alder");
+        Guitar whatErinLikes = new Guitar("", 0, "", "CJ", "acoustic", "", "Sitka");
         Guitar guitar = inventory.search(whatErinLikes);
 
         if (guitar != null) {

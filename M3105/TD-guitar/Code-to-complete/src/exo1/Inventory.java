@@ -27,29 +27,20 @@ public class Inventory {
 
     public Guitar search(Guitar searchGuitar) {
         for (Guitar guitar : guitars) {
-            String builder = searchGuitar.getConstructeur();
-            if ((builder != null) && (!builder.equals("")) && (!builder.equals(guitar.getConstructeur())))
-                continue;
-
-            String model = searchGuitar.getModele();
-            if ((model != null) && (!model.equals("")) && (!model.equals(guitar.getModele())))
-                continue;
-
-            String type = searchGuitar.getType();
-            if ((type != null) && (!type.equals("")) && (!type.equals(guitar.getType())))
-                continue;
-
-            String backWood = searchGuitar.getBois1();
-            if ((backWood != null) && (!backWood.equals("")) && (!backWood.equals(guitar.getBois1())))
-                continue;
-
-            String topWood = searchGuitar.getBois2();
-            if ((topWood != null) && (!topWood.equals("")) && (!topWood.equals(guitar.getBois2())))
-                continue;
-
+            if (noMatch(searchGuitar.getConstructeur(), guitar.getConstructeur())) continue;
+            if (noMatch(searchGuitar.getModele(), guitar.getModele())) continue;
+            if (noMatch(searchGuitar.getType(), guitar.getType())) continue;
+            if (noMatch(searchGuitar.getBois1(), guitar.getBois1())) continue;
+            if (noMatch(searchGuitar.getBois2(), guitar.getBois2())) continue;
             return guitar;
         }
         return null;
+    }
+
+    private boolean noMatch(String searched, String realDrop) {
+        if (searched == null || searched.equals("")) return false;
+        
+        return !searched.equals(realDrop);
     }
 
 }
