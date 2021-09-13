@@ -1,7 +1,5 @@
-package exo2;
+package Guitar;
 
-public enum Builder { 
-
+public enum Builder {
   FENDER, MARTIN, GIBSON, COLLINGS, OLSON, RYAN, PRS, ANY;
-
 }
