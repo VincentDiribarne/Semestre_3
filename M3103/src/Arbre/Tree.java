@@ -1,13 +1,14 @@
 package Arbre;
 
+import java.util.Iterator;
 import java.util.List;
 
-public interface Arbre<T> {
-    T getArbresValues();
-    List<Arbre<T>> getForet();
+public interface Tree<T> {
+    T getRootValues();
+    List<Tree<T>> getForest();
 
-    int getHauteur();
-    AvgHeightInfo getHauteurMoyenne();
+    int getHeight();
+    AvgHeightInfo getAvgHeight();
     int getNumNodes();
     int getNumLeaves();
 
@@ -29,10 +30,7 @@ public interface Arbre<T> {
         }
     }
 
-    void fillValuesPrefixPath(List<T> filler);
+    Iterator<T> prefixPathIterator();
 
-    void fillValuesSuffixePath(List<T> filler);
-
-    void fillValuesSpanPath(List<T> filler);
-
+    void addTree(Tree<T> tree);
 }

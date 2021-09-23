@@ -8,7 +8,6 @@ public class ArbreImple_Test {
 
     @Test
     public void getHauteurMoyenne() {
-        List<Arbre> niveau1 = new ArrayList<>();
-        niveau1.add();
+        List<Tree> niveau1 = new ArrayList<>();
     }
 }

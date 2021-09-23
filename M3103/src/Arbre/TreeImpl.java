@@ -1,24 +1,25 @@
 package Arbre;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class ArbreImple<T> implements Arbre<T>{
-    private T values;
-    private final List<Arbre<T>> foret;
+public class TreeImpl<T> implements Tree<T> {
+    private final T values;
+    private final List<Tree<T>> foret;
 
-    public ArbreImple(T values) {
+    public TreeImpl(T values) {
         this.values = values;
         this.foret = new ArrayList<>();
     }
 
     @Override
-    public T getArbresValues() {
+    public T getRootValues() {
         return null;
     }
 
     @Override
-    public List<Arbre<T>> getForet() {
+    public List<Tree<T>> getForest() {
         return foret;
     }
     public int vide() {
@@ -30,19 +31,19 @@ public class ArbreImple<T> implements Arbre<T>{
     }
 
     @Override
-    public int getHauteur() {
+    public int getHeight() {
         if (this.foret.isEmpty()) return 0;
         int hMax = 0;
-        for (Arbre foret : foret) {
-            if (foret.getHauteur() > hMax) {
-                hMax = foret.getHauteur();
+        for (Tree foret : foret) {
+            if (foret.getHeight() > hMax) {
+                hMax = foret.getHeight();
             }
         }
         return hMax + 1;
     }
 
     @Override
-    public AvgHeightInfo getHauteurMoyenne() {
+    public AvgHeightInfo getAvgHeight() {
         float balancedTotal = 0;
         int numLeaves = 0;
 
@@ -50,8 +51,8 @@ public class ArbreImple<T> implements Arbre<T>{
             return new AvgHeightInfo(0,1);
         }
 
-        for(Arbre foret : foret) {
-            AvgHeightInfo ahi = foret.getHauteurMoyenne();
+        for(Tree foret : foret) {
+            AvgHeightInfo ahi = foret.getAvgHeight();
             balancedTotal =+ ahi.getAvgHeight() * ahi.getNumLeaves();
             numLeaves += ahi.getNumLeaves();
         }
@@ -61,7 +62,7 @@ public class ArbreImple<T> implements Arbre<T>{
     @Override
     public int getNumNodes() {
         int total = 1;
-        for (Arbre foret : foret) {
+        for (Tree foret : foret) {
             total += foret.getNumNodes();
         }
         return total;
@@ -73,30 +74,19 @@ public class ArbreImple<T> implements Arbre<T>{
             return 1;
         }
         int total = 1;
-        for (Arbre foret : foret) {
+        for (Tree foret : foret) {
             total += foret.getNumLeaves();
         }
         return total;
     }
 
     @Override
-    public void fillValuesPrefixPath(List<T> filler) {
-        filler.add(this.values);
-        for (Arbre foret: foret) {
-            fillValuesPrefixPath(filler);
-        }
+    public void addTree(Tree<T> tree) {
+        getForest().add(tree);
     }
 
     @Override
-    public void fillValuesSuffixePath(List<T> filler) {
-        for (Arbre foret: foret) {
-            fillValuesPrefixPath(filler);
-        }
-        filler.add(this.values);
-    }
-
-    @Override
-    public void fillValuesSpanPath(List<T> filler) {
-
+    public Iterator<T> prefixPathIterator() {
+        return new PrefixPathTreeIterator<>(this);
     }
 }
