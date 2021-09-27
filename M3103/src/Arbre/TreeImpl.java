@@ -15,19 +15,12 @@ public class TreeImpl<T> implements Tree<T> {
 
     @Override
     public T getRootValues() {
-        return null;
+        return values;
     }
 
     @Override
     public List<Tree<T>> getForest() {
         return foret;
-    }
-    public int vide() {
-        if(this.foret.isEmpty()) {
-            return 0;
-        } else {
-            return 1;
-        }
     }
 
     @Override
@@ -47,13 +40,13 @@ public class TreeImpl<T> implements Tree<T> {
         float balancedTotal = 0;
         int numLeaves = 0;
 
-        if(this.foret.isEmpty()) {
-            return new AvgHeightInfo(0,1);
+        if (this.foret.isEmpty()) {
+            return new AvgHeightInfo(0, 1);
         }
 
-        for(Tree foret : foret) {
+        for (Tree foret : foret) {
             AvgHeightInfo ahi = foret.getAvgHeight();
-            balancedTotal =+ ahi.getAvgHeight() * ahi.getNumLeaves();
+            balancedTotal = +ahi.getAvgHeight() * ahi.getNumLeaves();
             numLeaves += ahi.getNumLeaves();
         }
         return new AvgHeightInfo(1 + balancedTotal / numLeaves, numLeaves);
@@ -70,7 +63,7 @@ public class TreeImpl<T> implements Tree<T> {
 
     @Override
     public int getNumLeaves() {
-        if(this.foret.isEmpty()) {
+        if (this.foret.isEmpty()) {
             return 1;
         }
         int total = 1;
@@ -85,8 +78,29 @@ public class TreeImpl<T> implements Tree<T> {
         getForest().add(tree);
     }
 
+    public void dumpTree() {
+        System.out.print(getRootValues());
+        if (!foret.isEmpty()) {
+            System.out.print("(");
+            for (Tree tree : foret) {
+                tree.dumpTree();
+            }
+            System.out.print(")");
+        }
+    }
+
     @Override
     public Iterator<T> prefixPathIterator() {
         return new PrefixPathTreeIterator<>(this);
+    }
+
+    @Override
+    public Iterator<T> suffixPathIterator() {
+        return new SuffixPathTreeIterator<>(this);
+    }
+
+    @Override
+    public Iterator<T> spanPathIterator() {
+        return new SpanPathTreeIterator<>(this);
     }
 }

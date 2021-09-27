@@ -19,20 +19,25 @@ public class Test {
         treeC.addTree(treeF);
         treeD.addTree(treeG);
 
+        treeA.dumpTree();
 
-
+        System.out.println("");
+        System.out.println("Parcours en Préfix");
         Iterator<Character> it = treeA.prefixPathIterator();
         while (it.hasNext()) {
             Character character = it.next();
             System.out.print(character);
         }
         System.out.println();
-        /*it = treeA.suffixPathIterator();
+
+        System.out.println("Parcours en Suffix");
+        it = treeA.suffixPathIterator();
         while (it.hasNext()) {
             Character character = (Character) it.next();
             System.out.print(character);
         }
         System.out.println();
+        /*
         it = treeA.spanPathIterator();
         while (it.hasNext()) {
             Character character = (Character) it.next();

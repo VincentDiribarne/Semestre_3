@@ -12,7 +12,7 @@ public interface Tree<T> {
     int getNumNodes();
     int getNumLeaves();
 
-    static class AvgHeightInfo {
+    class AvgHeightInfo {
         private final float avgHeight;
         private final int numLeaves;
 
@@ -31,6 +31,9 @@ public interface Tree<T> {
     }
 
     Iterator<T> prefixPathIterator();
+    Iterator<T> suffixPathIterator();
+    Iterator<T> spanPathIterator();
 
     void addTree(Tree<T> tree);
+    void dumpTree();
 }

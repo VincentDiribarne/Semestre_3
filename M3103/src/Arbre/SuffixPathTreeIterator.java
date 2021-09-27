@@ -3,7 +3,7 @@ package Arbre;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SuffixPathTreeIterator<T> implements Iterator<T>{
+public class SuffixPathTreeIterator<T> implements Iterator<T> {
     private final Tree<T> treeToIterate;
 
     private boolean isRootProceed = false;
@@ -25,11 +25,11 @@ public class SuffixPathTreeIterator<T> implements Iterator<T>{
         if (itCurrentSubtree == null || !itCurrentSubtree.hasNext()) {
             if (itForest.hasNext()) {
                 itCurrentSubtree = itForest.next().prefixPathIterator();
-            }else {
+            } else {
                 if (!isRootProceed) {
                     isRootProceed = true;
                     return this.treeToIterate.getRootValues();
-                }else {
+                } else {
                     throw new NoSuchElementException();
                 }
             }
