@@ -1,14 +1,11 @@
 package Arbre;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class SearchTreeImpl<T extends Comparable<T>> implements SearchTree<T> {
     private T value;
-    private SearchTreeImpl leftSubtree;
-    private SearchTreeImpl rightSubtree;
+    private SearchTreeImpl<T> leftSubtree;
+    private SearchTreeImpl<T> rightSubtree;
 
     public SearchTreeImpl(T value) {
         this.value = value;
@@ -26,7 +23,7 @@ public class SearchTreeImpl<T extends Comparable<T>> implements SearchTree<T> {
 
     @Override
     public boolean contains(T values) {
-        final int result = this.getRootValues().compareTo(values);
+        final int result = this.value.compareTo(values);
 
         if (result == 0) {
             return true;
@@ -45,7 +42,7 @@ public class SearchTreeImpl<T extends Comparable<T>> implements SearchTree<T> {
 
     @Override
     public void insertValues(T values) {
-        int result = this.getRootValues().compareTo(values);
+        int result = this.value.compareTo(values);
 
         if (result > 0) {
             if (this.leftSubtree == null) {
@@ -67,8 +64,77 @@ public class SearchTreeImpl<T extends Comparable<T>> implements SearchTree<T> {
 
     @Override
     public void deleteValues(T values) {
-        int result = this.getRootValues().compareTo(values);
+        //Cas 1 : pas de sag, pas de sad, value != racine -> rien
+        //Cas 2 : pas de sag, pas de sad, value == racine -> exception
+        int result = this.value.compareTo(values);
+        if (this.leftSubtree == null && this.rightSubtree == null) {
+            if (result != 0) {
+                throw new NoSuchElementException();
+            } else {
+                throw new IllegalStateException("Impossible de charger l'unique noeud de l'arbre");
+            }
+        }
 
+        if (result == 0) {
+            //Cas 3 : sag, value == racine, copier la pg valeur du sag dans la racine et delete
+            //Cas 4 : sad, value == racine, copier la pp de sad dans la racine et delete
+            if (this.leftSubtree != null) {
+                T valMax = this.leftSubtree.getMax();
+                this.deleteValues(values);
+                this.value = valMax;
+            } else {
+                T valMin = this.rightSubtree.getMin();
+                this.deleteValues(values);
+                this.value = valMin;
+            }
+        }
+
+        if (result > 0) {
+            //Cas 5 : sag, value == sag.racine, sag est feuille -> supprimer sag
+            //Cas 6 : sag, value <  ma racine, value != sag.racine OU sag est pas une feuille -> recursion sur sag
+            if (this.leftSubtree == null) {
+                throw new NoSuchElementException();
+            }
+            if (this.leftSubtree.isLeaf() && this.leftSubtree.getRootValues().equals(values)) {
+                this.leftSubtree = null;
+            } else {
+                this.leftSubtree.deleteValues(values);
+            }
+        }
+
+        if (result < 0) {
+            //Cas 7 : sad, value == sad.racine, sad est feuille -> supprimer sad
+            //Cas 8 : sad, value <  ma racine, value != sad.racine OU sad est pas une feuille -> recursion sur sad
+            if (this.rightSubtree== null) {
+                throw new NoSuchElementException();
+            }
+            if (this.rightSubtree.isLeaf() && this.rightSubtree.getRootValues().equals(values)) {
+                this.rightSubtree = null;
+            } else {
+                this.rightSubtree.deleteValues(values);
+            }
+        }
+    }
+
+    //Arbre null
+    private boolean isLeaf() {
+        return this.leftSubtree == null && this.rightSubtree == null;
+    }
+
+    //Valeur max de l'arbre
+    private T getMax() {
+       if(this.rightSubtree == null) {
+           return this.value;
+       }
+       return this.rightSubtree.getMax();
+    }
+
+    //Valeur minimale de l'arbre
+    private T getMin() {
+        if(this.leftSubtree == null) {
+            return this.value;
+        }
+        return this.leftSubtree.getMax();
     }
 
     @Override
@@ -214,7 +280,7 @@ public class SearchTreeImpl<T extends Comparable<T>> implements SearchTree<T> {
 
     @Override
     public void dumpTree() {
-        System.out.print(getRootValues());
+        System.out.print(value);
         if (this.leftSubtree != null) {
             System.out.print("(");
             this.leftSubtree.dumpTree();
