@@ -20,6 +20,8 @@ package Hashage;
 
 import Hashage.exceptions.CompleteTableException;
 import Hashage.exceptions.NullKeyException;
+
+import java.security.KeyException;
 import java.util.Iterator;
 
 /**
@@ -40,7 +42,7 @@ public interface Map<K, V> {
      * @throws NullKeyException if the key is null
      * @throws CompleteTableException if table is complete
      */
-    void put(K key, V value) throws NullKeyException, CompleteTableException;
+    void put(K key, V value) throws NullKeyException, CompleteTableException, KeyException;
 
     /**
      * Remove an entry (a pair key-value) from the table. 
@@ -50,7 +52,7 @@ public interface Map<K, V> {
      * @return the associated removed value, or null if the key does not exist
      * @throws NullKeyException if the key is null
      */
-    V remove(K key) throws NullKeyException;
+    V remove(K key) throws NullKeyException, KeyException;
 
     /**
      * Retrieve a value associated to a key
