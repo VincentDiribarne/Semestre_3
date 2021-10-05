@@ -1,0 +1,76 @@
+html {
+    background-color: black;
+    color: rgb(247, 226, 226);
+}
+
+header {
+    margin: auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#titre {
+    margin-top: 35px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#verifPro {
+    margin-top: -25px;
+    font-style: italic;
+    font-size: 15px;
+}
+
+#info {
+    font-size: 18px;
+    margin-left: 20%;
+    margin-bottom: 50px;
+}
+
+
+/*form {
+    margin-left: 26%;
+    margin-right: 35%;
+}*/
+
+.display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+input,
+textarea {
+    margin-bottom: 10px;
+    color: white;
+    border-radius: 5px;
+    border-color: white;
+    background-color: gray;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+button {
+    background-color: grey;
+    color: white;
+    border-radius: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    margin-left: 4%;
+}
+
+.rect {
+    color: black;
+    background-color: gray;
+    border: solid 1px white;
+    width: 400px;
+    height: 250px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
