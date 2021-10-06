@@ -2,9 +2,14 @@ package creation.singleton;
 
 public class TestA {
 
-	public static void main(String[] args) {
+	public TestA() {
+	}
 
-		A unA = new A();
-		unA.methode();
+	public void trucaFaire() {
+		A.getInstance().methode();
+	}
+
+	public static void main(String[] args) {
+		new TestA();
 	}
 }

@@ -1,20 +1,17 @@
 package creation.fabrique;
 
 public interface StudentFactory {
-
-	public Student createStudent();
+	Student createStudent();
 }
 
 class SmartStudentFactory implements StudentFactory {
-
 	public Student createStudent() {
-		return null;
+		return new SmartStudent();
 	}
 }
 
 class DumbStudentFactory implements StudentFactory {
-
 	public Student createStudent() {
-		return null;
+		return new DumbStudent();
 	}
 }
