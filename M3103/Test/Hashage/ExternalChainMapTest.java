@@ -1,16 +1,8 @@
 package Hashage;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
+import java.security.KeyException;
 
-/**
- *
- * @author rvenant
- */
 public class ExternalChainMapTest extends OpenAdressMapTest {
     
 	@Before
@@ -21,7 +13,7 @@ public class ExternalChainMapTest extends OpenAdressMapTest {
     
 	@org.junit.Test
     @Override
-    public void testPutMapComplete(){
+    public void testPutMapComplete() throws KeyException {
         for(int i = 0; i < 10; i++){
             this.map.put("k" + i, "val");
         }

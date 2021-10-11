@@ -2,6 +2,7 @@ package Hashage;
 
 import static org.junit.Assert.*;
 
+import java.security.KeyException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -43,7 +44,7 @@ public class OpenAdressMapTest {
     }
     
     @Test
-    public void testPutGet(){
+    public void testPutGet() throws KeyException {
         this.map.put("k1", "v1");
         this.map.put("k2", "v2");
         this.map.put("k3", "v3");
@@ -63,12 +64,12 @@ public class OpenAdressMapTest {
     }
     
     @Test(expected=NullKeyException.class)
-    public void testPutKeyNull(){
+    public void testPutKeyNull() throws KeyException {
     	this.map.put(null, "v4");
     }
     
     @Test(expected=CompleteTableException.class)
-    public void testPutMapComplete(){
+    public void testPutMapComplete() throws KeyException {
         for(int i = 0; i < 10; i++){
             this.map.put("k" + i, "val");
         }
@@ -76,7 +77,7 @@ public class OpenAdressMapTest {
     }
     
     @Test
-    public void testSize(){
+    public void testSize() throws KeyException {
         assertEquals(0, this.map.size());
         for(int i = 0; i < 5; i++){
             this.map.put("k" + i, "val");
@@ -88,7 +89,7 @@ public class OpenAdressMapTest {
     }
     
     @Test
-    public void testContains(){
+    public void testContains() throws KeyException {
         this.map.put("k1", "v1");
         this.map.put("k2", "v2");
         assertTrue(this.map.contains("k1"));
@@ -97,7 +98,7 @@ public class OpenAdressMapTest {
     }
     
     @Test
-    public void testRemove(){
+    public void testRemove() throws KeyException {
         this.map.put("k1", "v1");
         this.map.put("k2", "v2");
         String vk1 = this.map.remove("k1");
@@ -111,12 +112,12 @@ public class OpenAdressMapTest {
     }
     
     @Test(expected=NullKeyException.class)
-    public void testRemoveKeyNull(){
+    public void testRemoveKeyNull() throws KeyException {
     	this.map.remove(null);
     }
     
     @Test
-    public void testIterator(){
+    public void testIterator() throws KeyException {
         Iterator<MapEntry<String, String>> it = this.map.iterator();
         assertFalse(it.hasNext());
         this.map.put("k1", "v1");
@@ -138,7 +139,7 @@ public class OpenAdressMapTest {
     }
     
     @Test(expected=NoSuchElementException.class)
-    public void testIteratorException(){
+    public void testIteratorException() throws KeyException {
         this.map.put("k1", "v1");
         this.map.put("k2", "v2");
         final Iterator<MapEntry<String, String>> it = this.map.iterator();
@@ -149,7 +150,7 @@ public class OpenAdressMapTest {
     }
     
     @Test
-    public void testIteratorRemove(){
+    public void testIteratorRemove() throws KeyException {
         this.map.put("k1", "v1");
         this.map.put("k2", "v2");
         this.map.put("k3", "v3");
@@ -166,7 +167,7 @@ public class OpenAdressMapTest {
     }
     
     @Test(expected=IllegalStateException.class)
-    public void testIteratorRemoveException1(){
+    public void testIteratorRemoveException1() throws KeyException {
         this.map.put("k1", "v1");
         this.map.put("k2", "v2");
         final Iterator<MapEntry<String, String>> it = this.map.iterator();
@@ -174,7 +175,7 @@ public class OpenAdressMapTest {
     }
     
     @Test(expected=IllegalStateException.class)
-    public void testIteratorRemoveException2(){
+    public void testIteratorRemoveException2() throws KeyException {
         this.map.put("k1", "v1");
         this.map.put("k2", "v2");
         final Iterator<MapEntry<String, String>> it = this.map.iterator();
