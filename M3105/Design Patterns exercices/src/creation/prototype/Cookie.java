@@ -16,9 +16,8 @@ public class Cookie implements Cloneable {
 	@Override
 	public Cookie clone() {
 		try {
-			Cookie copy = (Cookie) super.clone();
 			// do other complex copy
-			return copy;
+			return (Cookie) super.clone();
 		} catch (CloneNotSupportedException e) {
 			return null;
 		}

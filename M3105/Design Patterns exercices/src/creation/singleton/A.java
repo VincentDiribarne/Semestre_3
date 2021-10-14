@@ -1,13 +1,19 @@
 package creation.singleton;
 
 public class A {
+    private static A instance;
 
-	public A() {
-	}
+    public static A getInstance() {
+        if (instance == null) {
+            instance = new A();
+        }
+        return instance;
+    }
 
-	public void methode() {
-		// code
-	}
-	
-	
+    public A() {
+    }
+
+    public void methode() {
+
+    }
 }

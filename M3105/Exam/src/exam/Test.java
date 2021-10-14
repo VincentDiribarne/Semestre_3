@@ -5,9 +5,8 @@ public class Test {
   public static void main(String[] args) {
 
     ObjetDeValeur collier = new ObjetDeValeur("Collier de perles", 20);
-    ObjetDeValeur radis = new ObjetDeValeur("Radis du jardin du roi"); // valeur
-                                                                       // 0 par
-                                                                       // defaut
+    ObjetDeValeur radis = new ObjetDeValeur("Radis du jardin du roi"); // valeur 0 par defaut
+
     radis.recevoirValeurSupp(3);
     ObjetDeValeur robe = new ObjetDeValeur("Robe portée par la reine", 5);
 
@@ -25,8 +24,8 @@ public class Test {
     sac.ajouterEquipement(new ObjetDeValeur("cle", 1));
 
     coffre.affiche();
-    coffre.afficheValeur();
-    coffre.afficheObjetsDeValeurMin(5);
+    //coffre.afficheValeur();
+    //coffre.afficheObjetsDeValeurMin(5);
   }
 
 }

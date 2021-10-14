@@ -28,7 +28,7 @@ class MonteurPizzaHawaii extends MonteurPizza {
 	}
 
 	public void monterGarniture() {
-		pizza.setGarniture("jambon+ananas");
+		pizza.setGarniture("jambon");
 	}
 }
 
