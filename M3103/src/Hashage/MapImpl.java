@@ -7,9 +7,16 @@ import java.util.*;
 
 public class MapImpl<K, V> implements Map<K, V> {
     private static final int ARRAYSIZE = 10;
-    private final List<MapEntryImpl<K, V>>[] tab = new List[ARRAYSIZE];
+    private final List<MapEntryImpl<K, V>>[] tab;
     private int nbEntry = 0;
 
+    public MapImpl() {
+        this.tab = new List[ARRAYSIZE];
+    }
+
+    public MapImpl(int size) {
+        this.tab = new List[size];
+    }
 
     static class MapEntryImpl<K, V> implements MapEntry<K, V> {
         private final K key;
@@ -44,37 +51,83 @@ public class MapImpl<K, V> implements Map<K, V> {
         }
     }
 
-    public class MapImplIterator<K, V> implements Iterator<MapEntry<K, V>> {
-        private int iTab = 0;
+    public class MapImplIterator implements Iterator<MapEntry<K, V>> {
+        private int indexFuturTab = -1;
+        private MapEntry<K, V> nextEntryToReturn;
+        private MapEntry<K, V> currentElement;
         private Iterator<MapEntryImpl<K, V>> itCurrentList;
+        private Iterator<MapEntryImpl<K, V>> futurListIt;
+
+        public MapImplIterator() {
+            this.getFuturListIt();
+            this.itCurrentList = this.futurListIt;
+            if (this.itCurrentList != null) {
+                this.getFuturListIt();
+            }
+        }
 
         @Override
         public boolean hasNext() {
-            return false;
+            return this.itCurrentList != null && this.itCurrentList.hasNext();
         }
 
         @Override
         public MapEntry<K, V> next() {
-            if (this.itCurrentList != null && this.itCurrentList.hasNext()) {
-                return this.itCurrentList.next();
-            }
-
-            this.iTab++;
-            while (this.iTab < tab.length && (tab[this.iTab] == null || tab[this.iTab].isEmpty())) {
-                this.iTab++;
-            }
-
-            if (this.iTab < tab.length) {
-                this.itCurrentList = tab[this.iTab].iterator();
-                return this.itCurrentList.next();
-            } else  {
+            if (this.itCurrentList == null) {
                 throw new NoSuchElementException();
             }
+            if (this.itCurrentList.hasNext()) {
+                return this.itCurrentList.next();
+            } else if (this.futurListIt == null) {
+                throw new NoSuchElementException();
+            } else {
+                this.itCurrentList = this.futurListIt;
+                this.getFuturListIt();
+                return this.itCurrentList.next();
+            }
+        }
+
+        public void getFuturListIt() {
+            do {
+                this.indexFuturTab++;
+            } while (this.indexFuturTab < tab.length && (tab[this.indexFuturTab] == null || tab[this.indexFuturTab].isEmpty()));
+
+            if (this.indexFuturTab >= tab.length) {
+                this.nextEntryToReturn = null;
+            } else {
+                this.itCurrentList = tab[this.indexFuturTab].iterator();
+                this.nextEntryToReturn = this.itCurrentList.next();
+            }
+        }
+
+        private void goToNextEntry() {
+            if (this.itCurrentList != null && this.itCurrentList.hasNext()) {
+                this.nextEntryToReturn = this.itCurrentList.next();
+            } else {
+                do {
+                    this.indexFuturTab++;
+                } while (this.indexFuturTab < tab.length && (tab[this.indexFuturTab] == null || tab[this.indexFuturTab].isEmpty()));
+
+                if (this.indexFuturTab >= tab.length) {
+                    this.nextEntryToReturn = null;
+                } else {
+                    this.itCurrentList = tab[this.indexFuturTab].iterator();
+                    this.nextEntryToReturn = this.itCurrentList.next();
+                }
+            }
+        }
+
+        public void remove() {
+            if (this.currentElement == null) {
+                throw new IllegalStateException("next() not called");
+            }
+            this.itCurrentList.remove();
+            nbEntry--;
         }
     }
 
     @Override
-    public void put(Object key, Object value) throws NullKeyException, CompleteTableException {
+    public void put(Object key, Object value) {
         final int idxKey = computerTabIndix((K) key);
 
         if (this.tab[idxKey] == null) {
@@ -93,7 +146,7 @@ public class MapImpl<K, V> implements Map<K, V> {
     }
 
     @Override
-    public Object remove(Object key) throws NullKeyException {
+    public Object remove(Object key) {
         final int idxKey = computerTabIndix((K) key);
         if (this.tab[idxKey] == null) {
             return null;
@@ -127,7 +180,7 @@ public class MapImpl<K, V> implements Map<K, V> {
     }
 
     @Override
-    public boolean contains(Object key) throws NullKeyException {
+    public boolean contains(Object key) {
         final int idxKey = computerTabIndix((K) key);
         if (this.tab[idxKey] == null) {
             return false;
@@ -143,7 +196,7 @@ public class MapImpl<K, V> implements Map<K, V> {
 
     @Override
     public Iterator<MapEntry<K, V>> iterator() {
-
+        return new MapImplIterator();
     }
 
     private int computerTabIndix(K key) {
