@@ -26,7 +26,6 @@ public class FacadeHomeCinema {
 	// autres méthodes
 
 	public void regarderFilm(String film) {
-
 		System.out.println("Vous allez voir un bon film...");
 		machineAPopCorn.marche();
 		machineAPopCorn.eclater();

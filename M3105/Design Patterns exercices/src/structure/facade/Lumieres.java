@@ -4,7 +4,6 @@ public class Lumieres {
 
 	public void attenuer(int lvl) {
 		System.out.println("Lumieres baissées à "+lvl);
-		
 	}
 
 	public void marche() {

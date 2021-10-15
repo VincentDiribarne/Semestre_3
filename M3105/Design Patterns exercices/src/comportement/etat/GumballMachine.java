@@ -1,5 +1,7 @@
 package comportement.etat;
 
+import javax.swing.plaf.nimbus.State;
+
 public class GumballMachine {
 
 	State soldOutState;

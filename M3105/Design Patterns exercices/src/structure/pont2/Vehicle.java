@@ -9,5 +9,13 @@ public abstract class Vehicle {
 		this.workShop2 = workShop2; 
 	} 
 
-	public abstract void manufacture(); 
-} 
+	public abstract void manufacture();
+
+	public Workshop getWorkShop1() {
+		return workShop1;
+	}
+
+	public Workshop getWorkShop2() {
+		return workShop2;
+	}
+}
