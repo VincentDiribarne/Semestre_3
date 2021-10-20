@@ -2,6 +2,7 @@ package OptimiserChaineProd;
 
 import OptimiserChaineProd.atelier.Atelier;
 import OptimiserChaineProd.optimisateur.OptimisateurAtelier;
+import OptimiserChaineProd.optimisateur.OptimisateurAtelierImpl;
 import OptimiserChaineProd.optimisateur.ResultatOptimisation;
 import OptimiserChaineProd.utils.GenerateurAtelier;
 
@@ -12,8 +13,9 @@ public class Runner {
 
         //Génère aléatoirement l'atelier
         final Atelier a = GenerateurAtelier.genererAtelierAleatoire(nbPostes, 1, 20);
+
         //Créer l'optimiseur
-        final OptimisateurAtelier oa = null;
+        final OptimisateurAtelier oa = new OptimisateurAtelierImpl();
 
         System.out.println("Début Optimisation");
         final long startTime = System.nanoTime();

@@ -11,7 +11,7 @@ public class ChaineSimple implements Chaine {
 
     private long tempsEntree;
     private long tempsSorte;
-    private ArrayList<Poste> postes;
+    private final ArrayList<Poste> postes;
 
     public ChaineSimple(List<Poste> postes, long tempsEntree, long tempsSortie) {
         if (postes == null || postes.isEmpty()) {

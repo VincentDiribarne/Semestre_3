@@ -32,14 +32,11 @@ public class AtelierSimple implements Atelier {
 
     @Override
     public Chaine getChaine(int i) {
-        switch (i) {
-            case 0:
-                return this.chaine0;
-            case 1:
-                return this.chaine1;
-            default:
-                throw new IndexOutOfBoundsException();
-        }
+        return switch (i) {
+            case 0 -> this.chaine0;
+            case 1 -> this.chaine1;
+            default -> throw new IndexOutOfBoundsException();
+        };
     }
 
     @Override

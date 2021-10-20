@@ -3,10 +3,6 @@ package OptimiserChaineProd.utils;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- *
- * @author rvenant
- */
 public final class GenerateurTemps {
 
     /**
@@ -28,7 +24,6 @@ public final class GenerateurTemps {
      * @param nbValues nombre de valeurs
      * @param min valeur minimale (incluse)
      * @param max valeur maximale (exclue)
-     * @return
      */
     public static Long[] generateRandomSequence(int nbValues, long min, long max) {
         if (nbValues <= 0) {
