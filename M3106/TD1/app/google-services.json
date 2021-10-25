@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "554751330554",
+    "firebase_url": "https://hyper-chat-iut-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "hyper-chat-iut",
     "storage_bucket": "hyper-chat-iut.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "554751330554-p7n8rmjr90bpc57qcpsaksv3gr6abtq9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.td1",
+            "certificate_hash": "a9943d11aed0099fd11837579fa3218940cde1ef"
+          }
+        },
         {
           "client_id": "554751330554-jajvag46asj18uukhoebq88ogeau167o.apps.googleusercontent.com",
           "client_type": 3
