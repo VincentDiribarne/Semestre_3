@@ -9,8 +9,8 @@ import OptimiserChaineProd.atelier.Poste;
 
 public class ChaineSimple implements Chaine {
 
-    private long tempsEntree;
-    private long tempsSorte;
+    private final long tempsEntree;
+    private final long tempsSorte;
     private final ArrayList<Poste> postes;
 
     public ChaineSimple(List<Poste> postes, long tempsEntree, long tempsSortie) {
@@ -21,6 +21,9 @@ public class ChaineSimple implements Chaine {
             throw new IllegalArgumentException("Le temps d'entrée ou de sortie d'une chaine doit être positif ou nul");
         }
         this.postes = new ArrayList<>(postes);
+
+        this.tempsEntree = tempsEntree;
+        this.tempsSorte = tempsSortie;
     }
 
     @Override
