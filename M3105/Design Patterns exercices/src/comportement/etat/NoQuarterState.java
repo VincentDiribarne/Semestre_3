@@ -1,5 +1,8 @@
 package comportement.etat;
 
+import javax.swing.*;
+import javax.swing.plaf.nimbus.State;
+
 public class NoQuarterState implements State {
     GumballMachine gumballMachine;
  

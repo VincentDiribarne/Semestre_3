@@ -2,32 +2,13 @@ package version1.weather;
 
 import java.util.*;
 
-public class WeatherData ...... {
-	private List observers;
+public class WeatherData extends Observable{
 	private float temperature;
 	private float humidity;
 	private float pressure;
 	
-	public WeatherData() {
-		//TODO:
-	}
-	
-	public void registerObserver(Observer o) {
-		//TODO:
-	}
-	
-	public void removeObserver(Observer o) {
-		int i = observers.indexOf(o);
-		if (i >= 0) {
-			observers.remove(i);
-		}
-	}
-	
-	public void notifyObservers() {
-		//TODO:
-	}
-	
 	public void measurementsChanged() {
+		setChanged();
 		notifyObservers();
 	}
 	
@@ -35,7 +16,7 @@ public class WeatherData ...... {
 		this.temperature = temperature;
 		this.humidity = humidity;
 		this.pressure = pressure;
-		//TODO:
+		measurementsChanged();
 	}
 	
 	public float getTemperature() {

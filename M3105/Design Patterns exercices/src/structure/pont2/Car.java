@@ -9,7 +9,7 @@ public class Car extends Vehicle {
 	@Override
 	public void manufacture() { 
 		System.out.print("Car "); 
-		workShop1.work(); 
-		workShop2.work(); 
+		getWorkShop1().work();
+		getWorkShop2().work();
 	} 
 } 

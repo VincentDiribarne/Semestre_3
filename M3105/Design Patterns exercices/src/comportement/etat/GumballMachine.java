@@ -1,13 +1,14 @@
 package comportement.etat;
 
+import javax.swing.plaf.nimbus.State;
+
 public class GumballMachine {
 
-	State soldOutState;
-	State noQuarterState;
-	State hasQuarterState;
-	State soldState;
-
-	State state;
+	private State soldOutState;
+	private State noQuarterState;
+	private State hasQuarterState;
+	private State soldState;
+	private State state;
 	int count = 0;
 
 	public GumballMachine(int numberGumballs) {
