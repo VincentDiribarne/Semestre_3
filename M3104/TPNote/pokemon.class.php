@@ -36,9 +36,5 @@ class Pokemon
     {
         return $this->_Html;
     }
-
-
 }
-
-
 ?>

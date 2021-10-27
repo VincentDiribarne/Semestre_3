@@ -68,7 +68,6 @@
                 $rep = $bdd->prepare($sql);
                 $rep->execute();
 
-
                 $sql2 = "SELECT * FROM `pokedex` WHERE id = {$_POST['MinMaxId']}";
                 $reponse2 = $bdd->prepare($sql2);
 
@@ -179,7 +178,6 @@
                 <input name="MinMaxId" type="number" min="0" max="300"> <br>
                 Stats : <select name="statistiqueModif">
                     <option value="EMPTY">---</option>
-                    <option value="id">ID</option>
                     <option value="baseHP">HP</option>
                     <option value="baseAttack">ATQ</option>
                     <option value="baseDefense">DEF</option>
@@ -190,6 +188,12 @@
                 Nouvelle Valeur :
                 <input name="NouvelleValeur" type="number" min="0" max="300"><br>
                 <input class="btn" type="submit" name="modifier" value="Modifier">
+            </form>
+
+            <form method="post" class="cadre">
+                Quel est ce pokemon ?<br>
+                Ne marche pas !<br>
+                <input class="btn" id="jouer" type="submit" name="jouer" value="Jouer">
             </form>
         </div>
     </div>
