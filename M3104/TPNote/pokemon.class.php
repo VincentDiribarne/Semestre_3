@@ -20,7 +20,14 @@ class Pokemon
             $Html .= "' style='background-image: -webkit-linear-gradient(30deg, " . $Type0couleur . " 50%, " . $Type1couleur . " 50%)'>";
         }
 
-        $Html .= "#" . $Id . " " . $Name . "</p>";
+        $Html .= "#" . $Id . " " . $Name . "</br> <img src='images/" . $PathImg . "'></img></br>";
+
+        if ($Type1nom == NULL) {
+            $Html .= "Types : " . $Type0nom;
+        } else {
+            $Html .= "Types : " . $Type0nom . ", " . $Type1nom;
+        }
+        $Html .= "</br> HP : " . $HP . "</br> Attack : " . $Attack . "</br> Defense : " . $Defense . "</br> SpAttack : " . $SpAttack . "</br> SpDefense : " . $SpDefense . "</br> Speed : " . $Speed . "</p>";
         $this->_Html = $Html;
     }
 

@@ -4,13 +4,11 @@
     <meta charset="utf-8">
     <title>TP_NOTE</title>
     <link href="pokedex.css" rel="stylesheet">
-    <script src='cours.js' async></script>
 </head>
 <body>
 <div class="pokedex">
     <div class="pan_right"></div>
     <div class="pan_screen">
-
         <?php
         include_once("db.inc.php");
         include_once("pokemon.class.php");
@@ -20,6 +18,7 @@
                 $bdd = new PDO("mysql:host=localhost;dbname=$db_name", $user, $pass);
                 $sql = "SELECT * FROM `pokedex` WHERE 1";
                 $arguments = array();
+
                 if ($_POST['type0'] != "EMPTY") {
                     $sql .= " AND types0nom = ?";
                     array_push($arguments, $_POST['type0']);
@@ -31,6 +30,18 @@
                     array_push($arguments, $_POST['type1']);
                 }
 
+                if ($_POST['condition'] != "EMPTY" && $_POST['operator'] != "EMPTY" && $_POST['number'] != "EMPTY") {
+                    $variable = $_POST['condition'] . $_POST['operator'] . $_POST['number'];
+                    $sql .= " AND {$variable}";
+                    array_push($arguments, $_POST['condition']);
+                }
+
+                if ($_POST['trier'] != "EMPTY") {
+                    $variable = $_POST['trier'] . " ". $_POST['groupe'];
+                    $sql .= " ORDER BY {$variable}";
+                    array_push($arguments, $_POST['trier']);
+                }
+
 
                 $reponse = $bdd->prepare($sql);
 
@@ -40,18 +51,13 @@
                     foreach ($tmp as $ligne) {
                         $tmp = new Pokemon($ligne['id'], $ligne['nom'], $ligne['types0nom'], $ligne['types0couleur'], $ligne['types1nom'], $ligne['types1couleur'], $ligne['baseHP'], $ligne['baseAttack'], $ligne['baseDefense'], $ligne['baseSpAttack'], $ligne['baseSpDefense'], $ligne['baseSpeed'], $ligne['description'], $ligne['image']);
                         echo $tmp->printHTML();
-
                     }
                 }
-
-
             } catch (PDOExeption $err) {
-                echo "Erreur : " . $e->getMessage() . "<br />";
+                echo "Erreur : " . $err->getMessage() . "<br />";
                 die();
             }
         }
-
-
         ?>
     </div>
     <div class="pan_left">
@@ -120,7 +126,22 @@
                     <option value=" < "><</option>
                     <option value=" <= "><=</option>
                 </select>
-                <input type="number" name="MinMaxValue" min="0" max="300"><br>
+                <input name="number" type="number" name="MinMaxValue" min="0" max="300"><br>
+                Trier par : <select name="trier">
+                    <option value="EMPTY">---</option>
+                    <option value="id">ID</option>
+                    <option value="baseHP">HP</option>
+                    <option value="baseAttack">ATQ</option>
+                    <option value="baseDefense">DEF</option>
+                    <option value="baseSpAttack">SP_ATQ</option>
+                    <option value="baseSpDefense">SP_DEF</option>
+                    <option value="baseSpeed">SPEED</option>
+                </select></br>
+                <input type="radio" id="croissant" name="groupe" value="ASC" checked>
+                <label for="croissant">Croissant</label>
+                <input type="radio" id="decroissant" name="groupe" value="DESC">
+                <label for="decroissant">Décroissant</label></br>
+
                 <input class="btn" type="submit" name="tri" value="Afficher les résultats">
             </form>
         </div>
