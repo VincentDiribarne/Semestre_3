@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "";
 
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView createNewAccount;
     EditText mailEditText, passwordEditText;
     Button loginButton;
+    ImageButton signButton;
     String mailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password_edit_text);
         loginButton = findViewById(R.id.login_button);
         createNewAccount = findViewById(R.id.login_text_view);
+        signButton = findViewById(R.id.sign_in_button);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -59,24 +62,24 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
 
-        loginButton.setOnClickListener(v -> perForLogin());
-
-        findViewById(R.id.sign_in_button).setOnClickListener(v -> {
-            if (isOnline()) {
-                signIn();
-            } else {
-                Toast.makeText(getApplicationContext(), "Aucune connexion Internet", Toast.LENGTH_LONG).show();
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                perForLogin();
             }
         });
 
-
-        createNewAccount.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RegisterClass.class)));
+        signButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
     }
 
     public void perForLogin() {
         String mail = mailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-
 
         if (!mail.matches(mailPattern)) {
             mailEditText.setError("Enter Correct Email");
@@ -126,19 +129,20 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i("FirebaseAuthPremier", "trouvé");
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            Log.i("FirebaseAuthPremier", "trouvé1");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
+                Log.i("FirebaseAuthPremier", "trouvé2");
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
             }
         }
@@ -169,7 +173,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
@@ -183,5 +186,10 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
