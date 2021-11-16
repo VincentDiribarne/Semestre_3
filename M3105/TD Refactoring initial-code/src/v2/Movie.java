@@ -9,10 +9,6 @@ public class Movie {
         setPriceCode(initialPrice);
     }
 
-    public PriceCode getPriceCode() {
-        return price.getPriceCode();
-    }
-
     public void setPriceCode(Price newPrice) {
         price = newPrice;
     }
@@ -23,5 +19,9 @@ public class Movie {
 
     public double getCharge(int dayRented) {
         return price.getCharge(dayRented);
+    }
+
+    public int getFrequentRenterPoint(int daysRented) {
+        return price.getFrequentRenterPoint(daysRented);
     }
 }

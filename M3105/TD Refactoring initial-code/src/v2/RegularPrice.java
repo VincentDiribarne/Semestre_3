@@ -3,11 +3,6 @@ package v2;
 public class RegularPrice extends Price {
 
     @Override
-    public PriceCode getPriceCode() {
-        return PriceCode.REGULAR;
-    }
-
-    @Override
     public double getCharge(int dayRented) {
         double result = 2;
         if (dayRented > 2) {
