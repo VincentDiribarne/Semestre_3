@@ -12,15 +12,12 @@ public class Movie {
     public void setPriceCode(Price newPrice) {
         price = newPrice;
     }
-
     public String getTitle() {
         return title;
     }
-
     public double getCharge(int dayRented) {
         return price.getCharge(dayRented);
     }
-
     public int getFrequentRenterPoint(int daysRented) {
         return price.getFrequentRenterPoint(daysRented);
     }

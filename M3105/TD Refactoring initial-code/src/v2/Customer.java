@@ -11,17 +11,17 @@ public class Customer {
 	public Customer (String name){ 
 		this.name = name;
 	}
-
 	public void addRental(Rental aRental) { 
 		rentals.add(aRental);
 	}
-
-	public String getName (){
+	public List<Rental> getRentals() {
+		return rentals;
+	}
+	public String getName(){
 		return name; 
 	}
 
 	public String statement() {
-
 		String result = "Rental Record for " + getName() + "\n";
 	
 		for (Rental each : rentals) {
@@ -51,8 +51,5 @@ public class Customer {
 		}
 		return result;
 	}
-	
-	
-
 }
 
