@@ -22,16 +22,11 @@ public class Customer {
 	}
 
 	public String statement() {
-		String result = "Rental Record for " + getName() + "\n";
-	
-		for (Rental each : rentals) {
-			result += "\t"+ each.getMovie().getTitle()+ "\t" + each.getCharge() + "\n";
-		}
-		//add footer lines 
-		result += "Amount owed is " + getTotalCharge() + "\n";
-		result += "You earned " + getTotalFrequentRenterPoints() + " frequent renter points";
-		
-		return result;
+		return new TextStatement().value(this);
+	}
+
+	public String htmlStatement() {
+		return new HTMLStatement().value(this);
 	}
 
 	public int getTotalFrequentRenterPoints() {
