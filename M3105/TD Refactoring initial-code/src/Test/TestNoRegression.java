@@ -1,9 +1,13 @@
-package v2;
+package Test;
 
-public class Test {
+import v2.*;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-    public static void main(String[] args) {
+public class TestNoRegression {
 
+    @Test
+    public void test() {
         Customer paul = new Customer("Paul");
 
         paul.addRental(new Rental(new Movie("Monty Python et le sacre graal", new RegularPrice()), 3));
@@ -12,10 +16,7 @@ public class Test {
         paul.addRental(new Rental(new Movie("Moi, moche et mechant", new ChildrensPrice()), 4));
         paul.addRental(new Rental(new Movie("Wallace and Gromit", new ChildrensPrice()), 6));
 
-        System.out.println(paul.statement());
-
-        //System.out.println(paul.htmlStatement());
-
+        assertEquals(20.5, paul.getTotalCharge(), 0.);
+        assertEquals(6, paul.getTotalFrequentRenterPoints());
     }
-
 }
