@@ -20,8 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class RegisterClass extends AppCompatActivity {
-    /*
+public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "";
     private FirebaseAuth mAuth;
@@ -82,31 +81,27 @@ public class RegisterClass extends AppCompatActivity {
             mAuth.createUserWithEmailAndPassword(mail, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             sendUserToNextActivity();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     });
         }
     }
 
-
     private void sendUserToNextActivity() {
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
     }
-
 
     private void updateUI(GoogleSignInAccount account) {
         if (account != null) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
-    }*/
+    }
 }

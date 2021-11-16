@@ -75,6 +75,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 signIn();
             }
         });
+
+        createNewAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void perForLogin() {
@@ -98,10 +106,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (task.isSuccessful()) {
                     Log.d(TAG, "createUserWithEmail:success");
                     sendUserToNextActivity();
-
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Adresse mail ou mot de passe incorrect.", Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
             }
@@ -129,14 +136,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("FirebaseAuthPremier", "trouvé");
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Log.i("FirebaseAuthPremier", "trouvé1");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                Log.i("FirebaseAuthPremier", "trouvé2");
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
@@ -164,10 +168,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                 });
-    }
-
-    private void createAccount() {
-
     }
 
     @Override
