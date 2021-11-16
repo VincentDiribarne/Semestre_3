@@ -1,0 +1,14 @@
+Creation d'une bibliotheque statique :
+ Compilation
+   gcc -c <source1.c> ... <sourcen.c>
+ Archivage
+   ar -r lib<bibliotheque.a> <source1.o> ... <sourcen.o>
+ Indexation (facultatif)
+   ranlib lib<bibliotheque.a> (a executer apres chaque copie de la bibliotheque)
+   ou (sur certains systemes)
+   as -s lib<bibliotheque.a>
+ Creation d'un fichier d'entete
+   pgm.h
+
+ Compilation du programme
+   gcc -I<rep. include> -L<rep. lib> [-o <executable>] <pgm.c> -l<bibliotheque>
