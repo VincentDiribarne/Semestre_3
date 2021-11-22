@@ -1,4 +1,4 @@
-public class CompteurDeCouacs implements Cancaneur{
+public class CompteurDeCouacs implements Cancaneur {
     private Cancaneur cancaneur;
     private static int nombreDeCouacs;
 
