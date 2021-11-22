@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,8 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "";
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -76,6 +77,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    perForLogin();
+                }
+                return false;
+            }
+        });
+
         createNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,13 +127,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void sendUserToNextActivity() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, AccueilLogin.class);
         startActivity(intent);
     }
 
     private void updateUI(GoogleSignInAccount account) {
         if (account != null) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AccueilLogin.class);
             startActivity(intent);
         }
     }
@@ -136,15 +147,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.i("Oki", "Test passé");
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            Log.i("Oki", "Test passé");
             try {
+                Log.i("Oki", "Test passé");
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AccueilLogin.class);
                 startActivity(intent);
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
@@ -186,10 +199,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             e.printStackTrace();
         }
         return false;
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }
