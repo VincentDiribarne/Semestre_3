@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AccueilLogin extends AppCompatActivity {
@@ -56,6 +57,13 @@ public class AccueilLogin extends AppCompatActivity {
     }
 
     public void creerPersonnage() {
+        new AlertDialog.Builder(this)
+                .setTitle("Guide d'utilisation")
+                .setMessage("Dans ce jeu, un pokémon va vous être présenté, vous aurez quatre propositions dont une contenant le véritable nom de celui-ci ! A vous de le retrouver et de cliquer dessus jeune dresseur ! Attention cependant," +
+                        " vous serez chronométré et n'aurez que 3 possibilités d'échouer !")
 
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .show();
     }
 }
