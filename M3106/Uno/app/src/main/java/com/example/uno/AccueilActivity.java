@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AccueilLogin extends AppCompatActivity {
+public class AccueilActivity extends AppCompatActivity {
     Button playDevice, playOnline, rules, scores;
     ImageView music, profil;
     Boolean musicEnCours;
@@ -29,15 +29,15 @@ public class AccueilLogin extends AppCompatActivity {
         musicEnCours = true;
 
         playDevice.setOnClickListener(v -> {
-            startActivity(new Intent(AccueilLogin.this, CreationActivity.class));
+            startActivity(new Intent(AccueilActivity.this, CreationActivity.class));
         });
 
         playOnline.setOnClickListener(v -> {
-            Toast.makeText(AccueilLogin.this, "Pas encore fait, une future mise à jour", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AccueilActivity.this, "Pas encore fait, une future mise à jour", Toast.LENGTH_SHORT).show();
         });
 
         scores.setOnClickListener(v -> {
-            startActivity(new Intent(AccueilLogin.this, ScoreActivity.class));
+            startActivity(new Intent(AccueilActivity.this, ScoreActivity.class));
         });
 
         rules.setOnClickListener(v -> rules());
@@ -58,7 +58,7 @@ public class AccueilLogin extends AppCompatActivity {
     }
 
     private void profil() {
-        startActivity(new Intent(AccueilLogin.this, ProfilActivity.class));
+        startActivity(new Intent(AccueilActivity.this, ProfilActivity.class));
     }
 
     public void rules() {

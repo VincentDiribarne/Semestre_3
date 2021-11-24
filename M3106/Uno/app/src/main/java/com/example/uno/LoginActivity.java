@@ -127,13 +127,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendUserToNextActivity() {
-        Intent intent = new Intent(LoginActivity.this, AccueilLogin.class);
+        Intent intent = new Intent(LoginActivity.this, AccueilActivity.class);
         startActivity(intent);
     }
 
     private void updateUI(GoogleSignInAccount account) {
         if (account != null) {
-            Intent intent = new Intent(getApplicationContext(), AccueilLogin.class);
+            Intent intent = new Intent(getApplicationContext(), AccueilActivity.class);
             startActivity(intent);
         }
     }
@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
-                Intent intent = new Intent(getApplicationContext(), AccueilLogin.class);
+                Intent intent = new Intent(getApplicationContext(), AccueilActivity.class);
                 startActivity(intent);
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);

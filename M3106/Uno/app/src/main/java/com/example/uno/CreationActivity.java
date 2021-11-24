@@ -9,6 +9,6 @@ public class CreationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView();
+        setContentView(R.layout.activity_creation);
     }
 }

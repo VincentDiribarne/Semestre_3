@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -107,13 +106,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void sendUserToNextActivity() {
-        Intent intent = new Intent(RegisterActivity.this, AccueilLogin.class);
+        Intent intent = new Intent(RegisterActivity.this, AccueilActivity.class);
         startActivity(intent);
     }
 
     private void updateUI(GoogleSignInAccount account) {
         if (account != null) {
-            Intent intent = new Intent(getApplicationContext(), AccueilLogin.class);
+            Intent intent = new Intent(getApplicationContext(), AccueilActivity.class);
             startActivity(intent);
         }
     }
