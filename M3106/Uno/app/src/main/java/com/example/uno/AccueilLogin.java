@@ -1,9 +1,10 @@
 package com.example.uno;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -27,43 +28,49 @@ public class AccueilLogin extends AppCompatActivity {
         profil = findViewById(R.id.profil);
         musicEnCours = true;
 
-
-        playDevice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                creerPersonnage();
-            }
+        playDevice.setOnClickListener(v -> {
+            startActivity(new Intent(AccueilLogin.this, CreationActivity.class));
         });
 
-        rules.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        playOnline.setOnClickListener(v -> {
+            Toast.makeText(AccueilLogin.this, "Pas encore fait, une future mise à jour", Toast.LENGTH_SHORT).show();
         });
 
-        music.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (musicEnCours) {
-                    music.setImageResource(R.drawable.ic_audio_off_black);
-                    musicEnCours = false;
-                } else {
-                    music.setImageResource(R.drawable.ic_audio_black);
-                    musicEnCours = true;
-                }
+        scores.setOnClickListener(v -> {
+            startActivity(new Intent(AccueilLogin.this, ScoreActivity.class));
+        });
+
+        rules.setOnClickListener(v -> rules());
+
+        profil.setOnClickListener(v -> {
+            profil();
+        });
+
+        music.setOnClickListener(v -> {
+            if (musicEnCours) {
+                music.setImageResource(R.drawable.ic_audio_off_black);
+                musicEnCours = false;
+            } else {
+                music.setImageResource(R.drawable.ic_audio_black);
+                musicEnCours = true;
             }
         });
     }
 
-    public void creerPersonnage() {
-        new AlertDialog.Builder(this)
-                .setTitle("Guide d'utilisation")
-                .setMessage("Dans ce jeu, un pokémon va vous être présenté, vous aurez quatre propositions dont une contenant le véritable nom de celui-ci ! A vous de le retrouver et de cliquer dessus jeune dresseur ! Attention cependant," +
-                        " vous serez chronométré et n'aurez que 3 possibilités d'échouer !")
+    private void profil() {
+        startActivity(new Intent(AccueilLogin.this, ProfilActivity.class));
+    }
 
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
+    public void rules() {
+        new AlertDialog.Builder(this)
+                .setTitle("Les règles")
+                .setMessage("Jouez avec vos amis sur le même téléphone. Utilisez vos cartes placées devant vous, et faites votre possible pour vous en débarrasser." +
+                        " Il faut que la carte soit de la même couleur, ou du même type que la carte placée sur le paquet." + " Vous ne pouvez pas poser de carte, il faut piocher dans ce cas." +
+                        " S'il vous reste une carte dans votre main, pensez à dire UNO, ou vous aurez de mauvaise surprise de la part de vos adversaires. La partie s'arrête quand un des joueurs n'a plus de carte.")
+                .setIcon(R.drawable.unologo)
+                .setPositiveButton(R.string.compris, (dialog, which) -> {
+
+                })
                 .show();
     }
 }

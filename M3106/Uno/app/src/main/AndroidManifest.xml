@@ -32,6 +32,10 @@
             android:name=".AccueilLogin"
             android:exported="true">
         </activity>
+
+        <activity android:name="">
+
+        </activity>
     </application>
 
 </manifest>
