@@ -6,24 +6,19 @@ try {
 
     $var = $_GET['code'];
     echo $var . '<br>';
-    $bdd = new PDO("mysql:host=localhost;dbname=$db_name", $user, $pass);
-    $sql = "SELECT * FROM `pizza` WHERE 1";
-    //WHERE Nom LIKE '{$var}%'
+    $bdd = new PDO("mysql:host=localhost;dbname=info2_i202597_php", "i202597", "Fkb696fn");
+    $sql = "SELECT * FROM `pizza` WHERE Nom LIKE '{$var}%'";
 
     echo $sql . '<br>';
 
-    $reponse = $bdd->prepare($sql);
+    $reponse = $bdd->query($sql);
 
     if (is_object($reponse)) {
-        echo 'ok <br>';
         $tmp = $reponse->fetchAll();
-        echo 'ok2 <br>';
         foreach ($tmp as $ligne) {
-            echo 'ok3 <br>';
             $tmp = new Pizza($ligne['Nom'], $ligne['Base'], $ligne['Fromage'], $ligne['Viande'], $ligne['Supplement1'], $ligne['Supplement2']);
             echo $tmp->innerNomHtml();
         }
-        echo 'ok4 <br>';
     }
 } catch (PDOExeption $err) {
     echo "Erreur : " . $err->getMessage() . "<br />";
