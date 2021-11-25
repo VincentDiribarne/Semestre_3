@@ -67,7 +67,7 @@ public class AccueilActivity extends AppCompatActivity {
                 .setMessage("Jouez avec vos amis sur le même téléphone. Utilisez vos cartes placées devant vous, et faites votre possible pour vous en débarrasser." +
                         " Il faut que la carte soit de la même couleur, ou du même type que la carte placée sur le paquet." + " Vous ne pouvez pas poser de carte, il faut piocher dans ce cas." +
                         " S'il vous reste une carte dans votre main, pensez à dire UNO, ou vous aurez de mauvaise surprise de la part de vos adversaires. La partie s'arrête quand un des joueurs n'a plus de carte.")
-                .setIcon(R.drawable.unologo)
+                .setIcon(R.drawable.uno_logo)
                 .setPositiveButton(R.string.compris, (dialog, which) -> {
 
                 })

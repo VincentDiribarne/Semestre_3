@@ -97,5 +97,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.61"
-        app:srcCompat="@drawable/unologo" />
+        app:srcCompat="@drawable/uno_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
