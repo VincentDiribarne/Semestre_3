@@ -1,0 +1,42 @@
+body {
+    background-color: gray;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titre {
+    text-align: center;
+    font-size: 35px;
+    color: whitesmoke;
+}
+
+.formulairePokemon {
+    margin-bottom: 50px;
+}
+
+.label {
+    margin-left: 18%;
+    text-align: center;
+    font-size: 18px;
+}
+
+select {
+    background-color: darkgray;
+    border-radius: 5px;
+    border: solid 1px black;
+    padding: 5px 10px 5px 5px;
+    margin-left: 25px;
+}
+
+.boutonSubmit {
+    margin-left: 5%;
+    border: solid 1px black;
+    margin-top: 20px;
+    align-self: auto;
+    text-align: center;
+    padding: 10px 25px;
+    font-size: 20px;
+    background: darkgray;
+    border-radius: 5px;
+}
