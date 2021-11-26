@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/gris</item>
         <item name="colorOnPrimary">@color/black</item>
         <item name="colorBleu">@color/bleuclair</item>
-        <item name="colorPseudo">@color/bleuclair</item>
+        <item name="colorPseudo">@color/black</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

@@ -1,14 +1,49 @@
 package com.example.uno;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreationActivity extends AppCompatActivity {
+    private ImageView ajout;
+    private TextView pseudo;
+    private RecyclerView recyclerView;
+    public List<Joueur> joueurs = new ArrayList<>();
+    private AdapteurJoueur adapteurJoueur;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation);
+
+        ajout = findViewById(R.id.ajout);
+        pseudo = findViewById(R.id.pseudoEditText);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapteurJoueur = new AdapteurJoueur<>(joueurs);
+        recyclerView.setAdapter(adapteurJoueur);
+
+        ajout.setOnClickListener(v -> ajout());
+    }
+
+    public void ajout() {
+        String pseudoText = pseudo.getText().toString();
+        if (pseudoText.isEmpty()) {
+            pseudo.setError("Entrez un pseudo");
+            return;
+        }
+
+        joueurs.add(new Joueur(pseudoText));
+        pseudo.setText("");
+        adapteurJoueur.notifyItemInserted(joueurs.size()+1);
     }
 }
