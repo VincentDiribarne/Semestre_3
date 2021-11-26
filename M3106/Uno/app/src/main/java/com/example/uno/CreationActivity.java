@@ -16,7 +16,7 @@ public class CreationActivity extends AppCompatActivity {
     private ImageView ajout;
     private TextView pseudo;
     private RecyclerView recyclerView;
-    public List<Joueur> joueurs = new ArrayList<>();
+    public static List<Joueur> joueurs = new ArrayList<>();
     private AdapteurJoueur adapteurJoueur;
 
     @Override
@@ -44,6 +44,7 @@ public class CreationActivity extends AppCompatActivity {
 
         joueurs.add(new Joueur(pseudoText));
         pseudo.setText("");
+        Log.i("ListeJoueur", joueurs.toString());
         adapteurJoueur.notifyItemInserted(joueurs.size()+1);
     }
 }
