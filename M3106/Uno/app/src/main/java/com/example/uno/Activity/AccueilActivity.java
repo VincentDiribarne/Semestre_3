@@ -1,4 +1,4 @@
-package com.example.uno;
+package com.example.uno.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.uno.R;
 
 public class AccueilActivity extends AppCompatActivity {
     Button playDevice, playOnline, rules, scores;

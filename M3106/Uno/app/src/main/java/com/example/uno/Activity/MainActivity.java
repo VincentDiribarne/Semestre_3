@@ -1,8 +1,10 @@
-package com.example.uno;
+package com.example.uno.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.uno.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override

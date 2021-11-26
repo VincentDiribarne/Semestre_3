@@ -1,4 +1,4 @@
-package com.example.uno;
+package com.example.uno.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.uno.Autres.AdapteurJoueur;
+import com.example.uno.Autres.Joueur;
+import com.example.uno.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

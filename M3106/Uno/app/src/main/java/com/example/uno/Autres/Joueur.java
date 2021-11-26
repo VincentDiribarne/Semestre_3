@@ -1,4 +1,4 @@
-package com.example.uno;
+package com.example.uno.Autres;
 
 public class Joueur {
     public String nom;

@@ -1,12 +1,14 @@
-package com.example.uno;
+package com.example.uno.Autres;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.uno.R;
+
 import java.util.List;
 
 public class AdapteurJoueur<context> extends RecyclerView.Adapter<ViewHolderJoueur>{

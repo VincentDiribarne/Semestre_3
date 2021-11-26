@@ -1,10 +1,12 @@
-package com.example.uno;
+package com.example.uno.Autres;
 
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.uno.R;
 
 public class ViewHolderJoueur extends RecyclerView.ViewHolder {
     public TextView txt_view;
