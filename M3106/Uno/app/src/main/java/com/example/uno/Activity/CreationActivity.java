@@ -1,12 +1,18 @@
 package com.example.uno.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreationActivity extends AppCompatActivity {
-    private ImageView ajout;
+    private ImageView ajout, poubelle;
     private TextView pseudo;
+    private Button valider;
     private RecyclerView recyclerView;
     public static List<Joueur> joueurs = new ArrayList<>();
     private AdapteurJoueur adapteurJoueur;
@@ -31,13 +38,44 @@ public class CreationActivity extends AppCompatActivity {
 
         ajout = findViewById(R.id.ajout);
         pseudo = findViewById(R.id.pseudoEditText);
+        valider = findViewById(R.id.jouer);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapteurJoueur = new AdapteurJoueur<>(joueurs);
         recyclerView.setAdapter(adapteurJoueur);
 
+        interaction();
         ajout.setOnClickListener(v -> ajout());
+
+        valider.setOnClickListener(v -> startActivity(new Intent(this, JouerActivité.class)));
+    }
+
+    public void interaction() {
+        ItemTouchHelper.SimpleCallback ith = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT){
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int pos = viewHolder.getAdapterPosition();
+                joueurs.remove(pos);
+                adapteurJoueur.notifyItemRemoved(pos);
+
+                if (joueurs.size() > 1) {
+                    valider.setVisibility(View.VISIBLE);
+                } else {
+                    valider.setVisibility(View.INVISIBLE);
+                }
+            }
+        };
+        ItemTouchHelper helper = new ItemTouchHelper(ith);
+        helper.attachToRecyclerView(recyclerView);
     }
 
     public void ajout() {
@@ -49,7 +87,10 @@ public class CreationActivity extends AppCompatActivity {
 
         joueurs.add(new Joueur(pseudoText));
         pseudo.setText("");
-        Log.i("ListeJoueur", joueurs.toString());
-        adapteurJoueur.notifyItemInserted(joueurs.size()+1);
+        adapteurJoueur.notifyItemInserted(joueurs.size() + 1);
+
+        if (joueurs.size() > 1) {
+            valider.setVisibility(View.VISIBLE);
+        }
     }
 }

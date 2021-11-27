@@ -48,6 +48,13 @@
             android:name=".Activity.ProfilActivity"
             android:exported="true">
         </activity>
+
+        <activity
+            android:name=".Activity.JouerActivité"
+            android:exported="true">
+        </activity>
+
+
     </application>
 
 </manifest>
