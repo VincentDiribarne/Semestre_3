@@ -57,7 +57,7 @@
         android:drawablePadding="5dp"
         android:ems="10"
         android:hint="Pseudo"
-        android:inputType="textPersonName"
+        android:inputType="textLongMessage"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

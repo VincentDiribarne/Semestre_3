@@ -81,9 +81,16 @@ public class CreationActivity extends AppCompatActivity {
             return;
         }
 
-        joueurs.add(new Joueur(pseudoText));
+        if(pseudoText.length() > 30) {
+            pseudo.setError("Trop long, 30 caractères max");
+            pseudo.setText("");
+            return;
+        }
+
+        joueurs.add(new Joueur(pseudoText, 0));
         pseudo.setText("");
         adapteurJoueur.notifyItemInserted(joueurs.size() + 1);
+        //TODO Met automatiquement en bas quand le joueur ajoute un message (TD2)
 
         if (joueurs.size() > 1) {
             valider.setVisibility(View.VISIBLE);

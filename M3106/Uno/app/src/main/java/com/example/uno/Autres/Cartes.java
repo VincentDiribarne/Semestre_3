@@ -6,18 +6,10 @@ public class Cartes {
     private String couleur;
     private String carteSpe;
 
-    public Cartes(int numero, String couleur, String image) {
+    public Cartes(int numero, String couleur) {
         this.numero = numero;
-        this.image = image;
         this.couleur = couleur;
     }
-
-    public Cartes(String couleur, String image, String carteSpe) {
-        this.image = image;
-        this.couleur = couleur;
-        this.carteSpe = carteSpe;
-    }
-
 
     public int getNumero() {
         return numero;

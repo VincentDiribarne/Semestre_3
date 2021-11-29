@@ -38,7 +38,7 @@ public class AccueilActivity extends AppCompatActivity {
 
         rules.setOnClickListener(v -> rules());
 
-        profil.setOnClickListener(v -> profil());
+        profil.setOnClickListener(v -> startActivity(new Intent(AccueilActivity.this, ProfilActivity.class)));
 
         music.setOnClickListener(v -> {
             if (musicEnCours) {
@@ -49,10 +49,6 @@ public class AccueilActivity extends AppCompatActivity {
                 musicEnCours = true;
             }
         });
-    }
-
-    private void profil() {
-        startActivity(new Intent(AccueilActivity.this, ProfilActivity.class));
     }
 
     public void rules() {
