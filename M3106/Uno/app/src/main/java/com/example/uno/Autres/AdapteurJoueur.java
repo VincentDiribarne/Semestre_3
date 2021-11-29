@@ -11,7 +11,7 @@ import com.example.uno.R;
 
 import java.util.List;
 
-public class AdapteurJoueur<context> extends RecyclerView.Adapter<ViewHolderJoueur>{
+public class AdapteurJoueur extends RecyclerView.Adapter<ViewHolderJoueur>{
     public List<Joueur> joueurs;
 
     public AdapteurJoueur(List<Joueur> joueurs) {

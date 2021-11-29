@@ -30,23 +30,15 @@ public class AccueilActivity extends AppCompatActivity {
         profil = findViewById(R.id.profil);
         musicEnCours = true;
 
-        playDevice.setOnClickListener(v -> {
-            startActivity(new Intent(AccueilActivity.this, CreationActivity.class));
-        });
+        playDevice.setOnClickListener(v -> startActivity(new Intent(AccueilActivity.this, CreationActivity.class)));
 
-        playOnline.setOnClickListener(v -> {
-            Toast.makeText(AccueilActivity.this, "Pas encore fait, une future mise à jour", Toast.LENGTH_SHORT).show();
-        });
+        playOnline.setOnClickListener(v -> Toast.makeText(AccueilActivity.this, "Pas encore fait, une future mise à jour", Toast.LENGTH_SHORT).show());
 
-        scores.setOnClickListener(v -> {
-            startActivity(new Intent(AccueilActivity.this, ScoreActivity.class));
-        });
+        scores.setOnClickListener(v -> startActivity(new Intent(AccueilActivity.this, ScoreActivity.class)));
 
         rules.setOnClickListener(v -> rules());
 
-        profil.setOnClickListener(v -> {
-            profil();
-        });
+        profil.setOnClickListener(v -> profil());
 
         music.setOnClickListener(v -> {
             if (musicEnCours) {
