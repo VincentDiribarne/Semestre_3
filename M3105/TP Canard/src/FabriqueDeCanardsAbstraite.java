@@ -1,4 +1,4 @@
 public abstract class FabriqueDeCanardsAbstraite {
-    public abstract Colvert creerColvert();
-    public abstract Mandarin creerMandarin();
+    public abstract Cancaneur creerColvert();
+    public abstract Cancaneur creerMandarin();
 }

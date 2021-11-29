@@ -1,11 +1,11 @@
 class FabriqueDeCanard extends FabriqueDeCanardsAbstraite {
     @Override
-    public Colvert creerColvert() {
+    public Cancaneur creerColvert() {
         return new Colvert();
     }
 
     @Override
-    public Mandarin creerMandarin() {
+    public Cancaneur creerMandarin() {
         return new Mandarin();
     }
 }
@@ -13,12 +13,12 @@ class FabriqueDeCanard extends FabriqueDeCanardsAbstraite {
 class FabriqueDeComptage extends FabriqueDeCanardsAbstraite {
 
     @Override
-    public Colvert creerColvert() {
+    public Cancaneur creerColvert() {
         return new CompteurDeCouacs(new Colvert());
     }
 
     @Override
-    public Mandarin creerMandarin() {
+    public Cancaneur creerMandarin() {
         return new CompteurDeCouacs(new Mandarin());
     }
 }

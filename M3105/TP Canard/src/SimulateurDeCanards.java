@@ -2,29 +2,18 @@ public class SimulateurDeCanards {
 
     public static void main(String[] args) {
         SimulateurDeCanards simulateur = new SimulateurDeCanards();
-        simulateur.simuler();
+        FabriqueDeCanard fabriqueDeCanard = new FabriqueDeCanard();
+        simulateur.simuler(fabriqueDeCanard);
     }
 
-    private void simuler() {
-        Cancaneur mandarin = new Mandarin();
-        Cancaneur appelant = new Appelant();
-        Cancaneur canardEnPlastique = new CanardEnPlastique();
-        Cancaneur canardOie = new CompteurDeCouacs(new AdaptateurDOie(new Oie()));
-        Cancaneur colvert = new CompteurDeCouacs(new Colvert());
+    private void simuler(FabriqueDeCanardsAbstraite fabriqueDeCanards) {
+        Cancaneur mandarin = fabriqueDeCanards.creerMandarin();
+        Cancaneur colvert = fabriqueDeCanards.creerColvert();
 
         System.out.println("\nSimilateur de canards");
         simuler(colvert);
-        simuler(colvert);
-        simuler(colvert);
-        simuler(colvert);
-        simuler(canardOie);
-        simuler(canardOie);
-        simuler(canardOie);
-        System.out.println("Nous avons compté " + CompteurDeCouacs.getNombreDeCouacs()+ " couac(s)");
-
         simuler(mandarin);
-        simuler(appelant);
-        simuler(canardEnPlastique);
+        System.out.println("Nous avons compté " + CompteurDeCouacs.getNombreDeCouacs()+ " couac(s)");
     }
 
 
