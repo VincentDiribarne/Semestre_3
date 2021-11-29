@@ -6,9 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.uno.R;
-
 import java.util.List;
 
 public class AdapteurJoueur extends RecyclerView.Adapter<ViewHolderJoueur>{

@@ -1,17 +1,22 @@
 package com.example.uno.Autres;
 
 public class Cartes {
-    private int numero;
+    private String numero;
     private String image;
-    private String couleur;
-    private String carteSpe;
+    private Couleur couleur;
+    private int carteSpe;
 
-    public Cartes(int numero, String couleur) {
+    public Cartes(String numero, Couleur couleur) {
         this.numero = numero;
         this.couleur = couleur;
     }
 
-    public int getNumero() {
+    public Cartes(Couleur couleur, int source) {
+        this.couleur = couleur;
+        this.carteSpe = source;
+    }
+
+    public String getNumero() {
         return numero;
     }
 
@@ -19,11 +24,11 @@ public class Cartes {
         return image;
     }
 
-    public String getCouleur() {
+    public Couleur getCouleur() {
         return couleur;
     }
 
-    public String getCarteSpe() {
+    public int getCarteSpe() {
         return carteSpe;
     }
 }

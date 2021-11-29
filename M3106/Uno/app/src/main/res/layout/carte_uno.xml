@@ -12,8 +12,10 @@
         android:layout_margin="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textCarte"
@@ -21,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:textColor="@color/gris"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/backgroundCarte"
         app:layout_constraintTop_toTopOf="@+id/backgroundCarte" />
@@ -31,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:textColor="@color/gris"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundCarte"
         app:layout_constraintEnd_toEndOf="@+id/backgroundCarte" />
@@ -40,9 +44,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/gris"
         android:textSize="80sp"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundCarte"
         app:layout_constraintEnd_toEndOf="@+id/backgroundCarte"
         app:layout_constraintStart_toStartOf="@+id/backgroundCarte"
         app:layout_constraintTop_toTopOf="@+id/backgroundCarte" />
+
+    <ImageView
+        android:id="@+id/imageUno"
+        android:layout_width="99dp"
+        android:layout_height="105dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundCarte"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundCarte"
+        app:layout_constraintStart_toStartOf="@+id/backgroundCarte"
+        app:layout_constraintTop_toTopOf="@+id/backgroundCarte"
+        app:srcCompat="@drawable/choix_couleur" />
 </androidx.constraintlayout.widget.ConstraintLayout>
