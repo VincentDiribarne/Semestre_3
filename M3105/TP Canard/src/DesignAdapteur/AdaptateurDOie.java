@@ -1,3 +1,7 @@
+package DesignAdapteur;
+
+import Cancaneur.*;
+
 public class AdaptateurDOie implements Cancaneur {
 
     private final Oie oie;

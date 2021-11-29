@@ -1,8 +1,14 @@
+import Cancaneur.Cancaneur;
+import DesignDecorateur.CompteurDeCouacs;
+import DesignFabrique.FabriqueDeCanard;
+import DesignFabrique.FabriqueDeCanardsAbstraite;
+import DesignFabrique.FabriqueDeComptage;
+
 public class SimulateurDeCanards {
 
     public static void main(String[] args) {
         SimulateurDeCanards simulateur = new SimulateurDeCanards();
-        FabriqueDeCanard fabriqueDeCanard = new FabriqueDeCanard();
+        FabriqueDeCanardsAbstraite fabriqueDeCanard = new FabriqueDeCanard();
         simulateur.simuler(fabriqueDeCanard);
     }
 

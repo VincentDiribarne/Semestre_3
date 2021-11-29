@@ -1,3 +1,7 @@
+package Cancaneur;
+
+import Cancaneur.Cancaneur;
+
 public class Mandarin implements Cancaneur {
     @Override
     public void cancaner() {
