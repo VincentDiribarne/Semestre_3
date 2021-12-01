@@ -50,7 +50,7 @@ int main() {
     
     // Suppression du tube
     printf("Suppression du tube\t");
-    if (unlink("tube") == 0)
+    if (unlink("/tmp/tube") == 0)
         printf("OK\n");
     else
        printf("NOK\n");

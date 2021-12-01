@@ -15,7 +15,7 @@ int debug = 0;
 int main() {
     // Création des sémaphores
     printf("Création SemP\t\t");
-    if (createSem(CleSemP, 0) != -1)
+    if (createSem(CleSemP, MAX_ELTS) != -1)
         printf("OK\n");
     else
         printf("NOK\n");
@@ -27,13 +27,13 @@ int main() {
         printf("NOK\n");
     
     printf("Création MutexP\t\t");
-    if (createSem(CleMutexP, 0) != -1)
+    if (createSem(CleMutexP, 1) != -1)
         printf("OK\n");
     else
         printf("NOK\n");
     
     printf("Création MutexC\t\t");
-    if (createSem(CleMutexC, 0) != -1)
+    if (createSem(CleMutexC, 1) != -1)
         printf("OK\n");
     else
         printf("NOK\n");
@@ -53,7 +53,7 @@ int main() {
     
     // Création d'un tube nommé
     printf("Création du tube\t");
-    if (mkfifo("tube", 0600) == 0)
+    if (mkfifo("/tmp/tube", 0600) == 0)
         printf("OK\n");
     else
        printf("NOK\n");

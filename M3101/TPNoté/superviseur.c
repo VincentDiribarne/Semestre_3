@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
-
+#include <sys/wait.h>
 #include "ipc.h"
 #include "types.h"
 
@@ -12,51 +12,77 @@
 int debug = 0;
 
 int main() {
-    int   semSuper;    // sémaphore superviseur
+
+    if (!fork()) //exécution de initRessources
+    {
+        execl("./initRessources", "initRessources", NULL, NULL);
+    }
+    while (wait(NULL) != -1);
+    int   semSuper = getSemId(CleSemSuper);    // sémaphore superviseur
 
     int   pidProd;     // pid du créateur de producteurs
     int   pidCons;     // pid du créateur de consommateurs;
-    shm_t *shm = NULL; // segment de mémoire partagée
+    shm_t *shm = (shm_t *)attachShm(getShmId(CleShm)); // segment de mémoire partagée
 
     int   nbProd = 0;  // nombre de producteurs créés
     int   nbCons = 0;  // nombre de consommateurs créés
-
-    // A COMPLETER (question 7)
-
-    // fin (question 7)
+    setbuf(stdout, NULL);
     
-    // Obtention du numéro interne du sémaphore
-    // A COMPLETER;
     
-    // Obtention du segment de mémoire partagée
-    // A COMPLETER
-    
-
     // A COMPLETER (question 2.3)
     // Attente de démarrage des processus mkProd et mkCons
+     printf("Attente d'un Producteur\n");
+    P(semSuper);
+   
+    printf("Attente d'un Consommateur\n");
+    P(semSuper);
     
+   
     // A COMPLETER (question 2.2)
     // Obtention des pids des processus
-
-    // fin (question 2.2)
+    pidProd = shm->pidProd;
+    pidCons = shm->pidCons;
     
     // détachement du segment de mémoire
     // A COMPLETER
+    detachShm(shm);
 
     while (1) {
         int cmd; // choix du menu affiché
         
         clearScreen();
-        // A COMPLETER
-        
+        //menu qui permet à l'utilisateur de créer des producteurs et des consommateurs
+        printf("1 - Ajouter Producteur (%d)\n", nbProd);
+        printf("2 - Ajouter Consommateur (%d)\n", nbCons);
+        printf("0 - Quitter\n");
+        printf("votre choix ?\n");
+        scanf("%d", &cmd);
+        if (cmd == 1)
+        {
+             nbProd++;
+            kill(pidProd, SIGUSR1);
+        }
+        if (cmd == 2)
+        {
+            nbCons++;
+            kill(pidCons, SIGUSR1);
+        }
+        if (cmd == 0)
+        {
+            //fin de mkcons et mkprod
+            kill(pidProd, SIGINT);
+            kill(pidCons, SIGINT);
+            if (!fork())
+            {
+                execl("./deleteRessources", "deleteRessources", NULL, NULL);//exécution de deleteRessources
+            }
+            while (wait(NULL) != -1);
+            printf("Fin Superviseur\n");
+            P(semSuper);
+            P(semSuper);
+            exit(-1);
+        }
     }
-    
-    // A COMPLETER (question 6)
-    // Attente de terminaison des processus mkProd et mkCons
-    
-    // A COMPLETER (question 7)
-
-    printf("Fin\n");
     
     return 0;
 }
