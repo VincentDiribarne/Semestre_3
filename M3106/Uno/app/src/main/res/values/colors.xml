@@ -17,4 +17,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="redUno">#C4302B</color>
     <color name="jauneUno">#FFE436</color>
+    <color name="bleuUno">#0080FF</color>
+    <color name="vertUno">#008000</color>
+    <color name="noirUno">#000000</color>
 </resources>

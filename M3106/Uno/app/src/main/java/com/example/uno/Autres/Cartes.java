@@ -4,7 +4,7 @@ public class Cartes {
     private String numero;
     private String image;
     private Couleur couleur;
-    private int carteSpe;
+    private int carteSpe = 0;
 
     public Cartes(String numero, Couleur couleur) {
         this.numero = numero;
@@ -20,9 +20,6 @@ public class Cartes {
         return numero;
     }
 
-    public String getImage() {
-        return image;
-    }
 
     public Couleur getCouleur() {
         return couleur;

@@ -1,14 +1,19 @@
 package com.example.uno.Activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.uno.Autres.AdaptateurMainJoueur;
 import com.example.uno.Autres.Cartes;
 import com.example.uno.Autres.Couleur;
 import com.example.uno.Autres.Joueur;
@@ -23,19 +28,29 @@ public class JouerActivite extends AppCompatActivity {
     private List<Cartes> defausse = new ArrayList<>();
     private List<Cartes> mainJoueur;
 
-    private TextView text1, text2, text3, pseudoJoueur;
+    private TextView pseudoJoueur;
+    private Button findetour;
+    private ImageView pioche, defausseImageView;
+    private RecyclerView recyclerView;
+    private AdaptateurMainJoueur adaptateurMainJoueur;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jeux);
-
         pseudoJoueur = findViewById(R.id.Pseudo);
+        findetour = findViewById(R.id.finDeTour);
+        pioche = findViewById(R.id.pioche);
+        defausseImageView = findViewById(R.id.defausse);
 
         Intent intentRecup = getIntent();
-        //TODO Revoir l'intent nombre, sinon, cela va provoquer des sauts de tours.
+
         int intentNombre = intentRecup.getIntExtra("Position", -1);
         List<Joueur> joueursList = CreationActivity.joueurs;
+        findetour.setVisibility(View.INVISIBLE);
+        recyclerView = findViewById(R.id.recyclerViewCartes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         if (intentNombre == -1) {
             initList();
@@ -46,13 +61,19 @@ public class JouerActivite extends AppCompatActivity {
                 joueursList.get(i).setMainCartes(mainJoueur);
             }
             intentNombre = 0;
+            lancementTour(joueursList, intentNombre);
         } else {
             affichageTexte(joueursList, intentNombre);
-            //TODO Faire tout ce qui a un rapport avec les interactions du Uno (affichage, contre uno, uno, etc)
+            affichageCarte(joueursList, intentNombre);
+
+            pioche.setOnClickListener(v -> {
+                mainJoueur.add(paquetCartes.remove(NombreAleatoire.getNombreRandom(paquetCartes.size(), 1)));
+                findetour.setVisibility(View.VISIBLE);
+            });
+
+            int finalIntentNombre = intentNombre;
+            findetour.setOnClickListener(v -> lancementTour(joueursList, finalIntentNombre));
         }
-
-
-        lancementTour(joueursList, intentNombre);
     }
 
     private void initList() {
@@ -174,8 +195,10 @@ public class JouerActivite extends AppCompatActivity {
         paquetCartes.add(new Cartes(Couleur.Noire, R.drawable.choix_couleur));
     }
 
-    private void affichageCarte() {
-
+    private void affichageCarte(List<Joueur> joueursList, int i) {
+        List<Cartes> mainjoueur = joueursList.get(i).getMainCartes();
+        adaptateurMainJoueur = new AdaptateurMainJoueur(mainjoueur);
+        recyclerView.setAdapter(adaptateurMainJoueur);
     }
 
     private void affichageTexte(List<Joueur> joueursList, int i) {
