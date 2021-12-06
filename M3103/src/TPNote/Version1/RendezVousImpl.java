@@ -9,14 +9,14 @@ public class RendezVousImpl implements Rendezvous {
     private String title;
     private int duration;
     private Calendar time;
-    private int tag;
+    private Calendar tag;
 
     public RendezVousImpl(String description, String title, int duration, Calendar time) {
         this.description = description;
         this.title = title;
         this.duration = duration;
         this.time = (Calendar) time.clone();
-        this.tag = (int) this.time.clone();
+        this.tag = (Calendar) this.time.clone();
     }
 
     public RendezVousImpl(String title, int duration, Calendar time) {
@@ -43,14 +43,14 @@ public class RendezVousImpl implements Rendezvous {
         return description;
     }
 
-    public int getTag() {
+    public Calendar getTag() {
         return tag;
     }
 
     @Override
     public void setTime(Calendar calendar) throws IllegalArgumentException {
         this.time = calendar;
-        this.tag = (int) this.time.clone();
+        this.tag = (Calendar) this.time.clone();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class RendezVousImpl implements Rendezvous {
         this.description = s;
     }
 
-    public void setTag(int tag) {
+    public void setTag(Calendar tag) {
         this.tag = tag;
     }
 

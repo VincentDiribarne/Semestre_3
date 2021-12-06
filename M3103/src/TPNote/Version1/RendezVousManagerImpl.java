@@ -5,13 +5,11 @@ import myrendezvous.Rendezvous;
 import myrendezvous.RendezvousManager;
 import myrendezvous.exceptions.RendezvousNotFound;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class RendezVousManagerImpl implements RendezvousManager {
-    TreeMap<Integer, RendezVousImpl> RendezVousManager = new TreeMap<>();
+    TreeMap<Calendar, RendezVousImpl> RendezVousManager = new TreeMap<>();
 
     @Override
     public Rendezvous addRendezvous(Rendezvous rdv) {
@@ -33,7 +31,7 @@ public class RendezVousManagerImpl implements RendezvousManager {
             throw new IllegalArgumentException("L'argument fournit n'est pas le bon");
         }
 
-        int tag = (((RendezVousImpl) rendezvous).getTag());
+        Calendar tag = (((RendezVousImpl) rendezvous).getTag());
         if (!(RendezVousManager.containsKey(tag))) {
             throw new RendezvousNotFound("Le rendez-vous fournit n'existe pas");
         }
@@ -80,39 +78,39 @@ public class RendezVousManagerImpl implements RendezvousManager {
 
     @Override
     public void removeAllRendezvousBefore(Calendar calendar) throws IllegalArgumentException {
-
+        RendezVousManager.headMap(calendar).clear();
     }
 
     @Override
     public List<Rendezvous> getRendezvousBetween(Calendar calendar, Calendar calendar1) throws IllegalArgumentException {
-        return null;
+        return RendezVousManager.subMap(calendar, calendar1).values().stream().map(RendezVousImpl::clone).collect(Collectors.toList());
     }
 
     @Override
     public List<Rendezvous> getRendezvousBefore(Calendar calendar) throws IllegalArgumentException {
-        List<RendezVousImpl> rendezvous = new ArrayList<>();
-        List<Rendezvous> rendezVousClone = new ArrayList<>();
-
-        for (RendezVousImpl rendezVousImpl: rendezvous) {
-            rendezVousClone.add(rendezVousImpl.clone());
-        }
-
-        return rendezVousClone;
+        return RendezVousManager.headMap(calendar).values().stream().map(RendezVousImpl::clone).collect(Collectors.toList());
     }
 
     @Override
     public List<Rendezvous> getRendezvousAfter(Calendar calendar) throws IllegalArgumentException {
-        return null;
+        return RendezVousManager.tailMap(calendar).values().stream().map(RendezVousImpl::clone).collect(Collectors.toList());
     }
 
     @Override
     public List<Rendezvous> getRendezvousToday() {
-        return null;
+        Calendar today = Calendar.getInstance();
+        Calendar tomorrow = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrow.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrow.add(Calendar.DAY_OF_WEEK, 1);
+
+        return getRendezvousBetween(today, tomorrow);
     }
 
     @Override
     public boolean hasOverlap(Calendar calendar, Calendar calendar1) {
-        return false;
+        List<Rendezvous> rendezvous = getRendezvousBetween(calendar, calendar1);
+        return rendezvous.size() != 0;
     }
 
     @Override
