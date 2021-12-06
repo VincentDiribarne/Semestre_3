@@ -2,6 +2,7 @@ package Cancaneur;
 
 import Cancaneur.Cancaneur;
 import DesignObserver.Observateur;
+import DesignVisitor.Visitor;
 
 public class Mandarin implements Cancaneur {
     @Override
@@ -17,5 +18,10 @@ public class Mandarin implements Cancaneur {
     @Override
     public void notifierObservateurs() {
 
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }

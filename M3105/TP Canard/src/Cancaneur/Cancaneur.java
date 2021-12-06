@@ -1,10 +1,9 @@
 package Cancaneur;
 
 import DesignObserver.CouacObservable;
-import DesignObserver.Observable;
-import DesignObserver.Observateur;
+import DesignVisitor.Visitable;
 
-public interface Cancaneur extends CouacObservable {
+public interface Cancaneur extends CouacObservable, Visitable {
     void cancaner();
 }
 

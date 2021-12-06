@@ -3,6 +3,7 @@ package Cancaneur;
 import DesignObserver.CouacObservable;
 import DesignObserver.Observable;
 import DesignObserver.Observateur;
+import DesignVisitor.Visitor;
 
 public class Colvert implements Cancaneur, CouacObservable {
     private CouacObservable couacObservable;
@@ -23,5 +24,10 @@ public class Colvert implements Cancaneur, CouacObservable {
 
     public void notifierObservateurs() {
         couacObservable.notifierObservateurs();
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }

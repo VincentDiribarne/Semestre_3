@@ -2,6 +2,7 @@ package DesignAdapteur;
 
 import Cancaneur.*;
 import DesignObserver.Observateur;
+import DesignVisitor.Visitor;
 
 public class AdaptateurDOie implements Cancaneur {
 
@@ -25,5 +26,10 @@ public class AdaptateurDOie implements Cancaneur {
     @Override
     public void notifierObservateurs() {
 
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }

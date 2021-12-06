@@ -1,21 +1,26 @@
 import Cancaneur.*;
+import DesignAdapteur.AdaptateurDOie;
 import DesignComposite.Troupe;
 import DesignDecorateur.CompteurDeCouacs;
 import DesignFabrique.FabriqueDeCanard;
 import DesignFabrique.FabriqueDeCanardsAbstraite;
+import DesignFabrique.FabriqueDeComptage;
 import DesignObserver.Cancanologue;
+import DesignVisitor.Visitor;
+import DesignVisitor.VisitorCompteurNoeudFeuille;
 
 
 public class SimulateurDeCanards {
 
     public static void main(String[] args) {
         SimulateurDeCanards simulateur = new SimulateurDeCanards();
-        FabriqueDeCanardsAbstraite fabriqueDeCanard = new FabriqueDeCanard();
+        FabriqueDeCanardsAbstraite fabriqueDeCanard = new FabriqueDeComptage();
         simulateur.simuler(fabriqueDeCanard);
     }
 
     private void simuler(FabriqueDeCanardsAbstraite fabriqueDeCanards) {
-        Cancaneur mandarin = fabriqueDeCanards.creerMandarin();
+        //Observer
+        /*Cancaneur mandarin = fabriqueDeCanards.creerMandarin();
         Cancaneur colvert = fabriqueDeCanards.creerColvert();
         Cancanologue leCancanologue = new Cancanologue();
         Cancanologue leCancanologue2 = new Cancanologue();
@@ -23,8 +28,32 @@ public class SimulateurDeCanards {
         colvert.enregistrerObservateur(leCancanologue);
         colvert.enregistrerObservateur(leCancanologue2);
 
-        simuler(colvert);
+        simuler(colvert);*/
 
+        //Visitor
+        Cancaneur colvert = fabriqueDeCanards.creerColvert();
+        Cancaneur mandarin = fabriqueDeCanards.creerMandarin();
+        Cancaneur canardOie = new AdaptateurDOie(new Oie());
+
+        Troupe sousTroupe = new Troupe();
+        fabriqueDeCanards = new FabriqueDeCanard();
+        sousTroupe.add(fabriqueDeCanards.creerColvert());
+        sousTroupe.add(fabriqueDeCanards.creerColvert());
+        sousTroupe.add(fabriqueDeCanards.creerMandarin());
+
+        Troupe maTroupe = new Troupe();
+        maTroupe.add(colvert);
+        maTroupe.add(mandarin);
+        maTroupe.add(canardOie);
+        maTroupe.add(sousTroupe);
+
+        VisitorCompteurNoeudFeuille unVisitor = new VisitorCompteurNoeudFeuille();
+        maTroupe.accept(unVisitor);
+
+        System.out.println("Nombre de Noeud = " + unVisitor.getNbNoeud());
+        System.out.println("Nombre de Feuille = " +unVisitor.getNbFeuille());
+
+        //Autres
         /*Cancaneur appelant = new Appelant();
         //Cancaneur colvert = fabriqueDeCanards.creerColvert();
 

@@ -2,6 +2,7 @@ package DesignDecorateur;
 
 import Cancaneur.Cancaneur;
 import DesignObserver.Observateur;
+import DesignVisitor.Visitor;
 
 public class CompteurDeCouacs implements Cancaneur {
     private Cancaneur cancaneur;
@@ -29,5 +30,11 @@ public class CompteurDeCouacs implements Cancaneur {
     @Override
     public void notifierObservateurs() {
 
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+        cancaneur.accept(v);
     }
 }
