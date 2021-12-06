@@ -1,6 +1,7 @@
 package DesignComposite;
 
 import Cancaneur.Cancaneur;
+import DesignObserver.Observateur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,5 +18,16 @@ public class Troupe implements Cancaneur {
         for (Cancaneur cancaneur: cancaneurs) {
             cancaneur.cancaner();
         }
+    }
+
+
+    @Override
+    public void enregistrerObservateur(Observateur observateur) {
+
+    }
+
+    @Override
+    public void notifierObservateurs() {
+
     }
 }

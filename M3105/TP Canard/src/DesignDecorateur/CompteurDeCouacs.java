@@ -1,6 +1,7 @@
 package DesignDecorateur;
 
 import Cancaneur.Cancaneur;
+import DesignObserver.Observateur;
 
 public class CompteurDeCouacs implements Cancaneur {
     private Cancaneur cancaneur;
@@ -18,5 +19,15 @@ public class CompteurDeCouacs implements Cancaneur {
 
     public static int getNombreDeCouacs() {
         return nombreDeCouacs;
+    }
+
+    @Override
+    public void enregistrerObservateur(Observateur observateur) {
+
+    }
+
+    @Override
+    public void notifierObservateurs() {
+
     }
 }

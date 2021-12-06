@@ -1,6 +1,7 @@
 package DesignAdapteur;
 
 import Cancaneur.*;
+import DesignObserver.Observateur;
 
 public class AdaptateurDOie implements Cancaneur {
 
@@ -13,5 +14,16 @@ public class AdaptateurDOie implements Cancaneur {
     @Override
     public void cancaner() {
         oie.cacarder();
+    }
+
+
+    @Override
+    public void enregistrerObservateur(Observateur observateur) {
+
+    }
+
+    @Override
+    public void notifierObservateurs() {
+
     }
 }

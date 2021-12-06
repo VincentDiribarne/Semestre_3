@@ -3,6 +3,7 @@ import DesignComposite.Troupe;
 import DesignDecorateur.CompteurDeCouacs;
 import DesignFabrique.FabriqueDeCanard;
 import DesignFabrique.FabriqueDeCanardsAbstraite;
+import DesignObserver.Cancanologue;
 
 
 public class SimulateurDeCanards {
@@ -15,13 +16,22 @@ public class SimulateurDeCanards {
 
     private void simuler(FabriqueDeCanardsAbstraite fabriqueDeCanards) {
         Cancaneur mandarin = fabriqueDeCanards.creerMandarin();
-        Cancaneur appelant = new Appelant();
+        Cancaneur colvert = fabriqueDeCanards.creerColvert();
+        Cancanologue leCancanologue = new Cancanologue();
+        Cancanologue leCancanologue2 = new Cancanologue();
+
+        colvert.enregistrerObservateur(leCancanologue);
+        colvert.enregistrerObservateur(leCancanologue2);
+
+        simuler(colvert);
+
+        /*Cancaneur appelant = new Appelant();
         //Cancaneur colvert = fabriqueDeCanards.creerColvert();
 
-        /*System.out.println("\nSimilateur de canards");
+        System.out.println("\nSimilateur de canards");
         simuler(colvert);
         simuler(mandarin);
-        System.out.println("Nous avons compté " + CompteurDeCouacs.getNombreDeCouacs()+ " couac(s)");*/
+        System.out.println("Nous avons compté " + CompteurDeCouacs.getNombreDeCouacs()+ " couac(s)");
 
         Troupe troupeDeCanards = new Troupe();
         troupeDeCanards.add(mandarin);
@@ -34,10 +44,11 @@ public class SimulateurDeCanards {
         troupeDeColvert.add(colvert3);
 
         troupeDeCanards.add(troupeDeColvert);
+        cancanologue.actualiser(colvert2);
         System.out.println("\nSimilateur de canards : Toute la troupe");
         simuler(troupeDeCanards);
         System.out.println("\nSimilateur de canards : Troupe de colvert");
-        simuler(troupeDeColvert);
+        simuler(troupeDeColvert);*/
     }
 
     public void simuler(Cancaneur canard) {
