@@ -1,6 +1,7 @@
 package com.example.uno.Autres;
 
-import android.graphics.Color;
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,46 +27,51 @@ public class AdaptateurMainJoueur extends RecyclerView.Adapter<ViewHolderMainJou
         return new ViewHolderMainJoueur(v);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolderMainJoueur holder, int position) {
+        Log.i("Couleur_Cartes", String.valueOf(mainJoueur.get(position).getCouleur()));
+        Log.i("Couleur_Cartes", String.valueOf(mainJoueur.get(position).getNumero()));
         Cartes cartes = mainJoueur.get(position);
-        holder.view.setBackgroundColor(backgroundCouleur(cartes));
+        switch (cartes.getCouleur()) {
+            case Jaune:
+                Log.i("Couleur", "Jaune");
+                holder.view.setBackgroundColor(R.color.jauneUno);
+                break;
+
+            /*case Bleu:
+                Log.i("Couleur", "Bleu");
+                holder.view.setBackgroundColor(R.color.bleuUno);
+                break;*/
+
+            case Vert:
+                Log.i("Couleur", "Vert");
+                holder.view.setBackgroundColor(R.color.vertUno);
+                break;
+
+            case Noire:
+                Log.i("Couleur", "Noire");
+                holder.view.setBackgroundColor(R.color.noirUno);
+                break;
+
+            case Rouge:
+                Log.i("Couleur", "Rouge");
+                holder.view.setBackgroundColor(R.color.redUno);
+                break;
+        }
 
         if (cartes.getCarteSpe() != 0) {
+            holder.imageView.setVisibility(View.VISIBLE);
             holder.imageView.setImageResource(cartes.getCarteSpe());
         } else {
             holder.text1.setText(cartes.getNumero());
             holder.text2.setText(cartes.getNumero());
             holder.text3.setText(cartes.getNumero());
         }
-    }
 
-    private int backgroundCouleur(Cartes cartes) {
-        int color = R.color.white;
+        holder.itemView.setOnClickListener(v -> {
 
-        switch (cartes.getCouleur()) {
-            case Jaune:
-                color = R.color.jauneUno;
-                break;
-
-            case Bleu:
-                color = R.color.bleuUno;
-                break;
-
-            case Vert:
-                color = R.color.vertUno;
-                break;
-
-            case Noire:
-                color = R.color.noirUno;
-                break;
-
-            case Rouge:
-                color = R.color.redUno;
-                break;
-        }
-
-        return color;
+        });
     }
 
     @Override

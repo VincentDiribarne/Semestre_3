@@ -2,6 +2,7 @@ package com.example.uno.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,7 +27,7 @@ import java.util.List;
 public class JouerActivite extends AppCompatActivity {
     private List<Cartes> paquetCartes = new ArrayList<>();
     private List<Cartes> defausse = new ArrayList<>();
-    private List<Cartes> mainJoueur;
+    private List<Cartes> mainJoueur = new ArrayList<>();
 
     private TextView pseudoJoueur;
     private Button findetour;
@@ -54,11 +55,13 @@ public class JouerActivite extends AppCompatActivity {
 
         if (intentNombre == -1) {
             initList();
-            for (int i = joueursList.size(); i > 0; i--) {
+            for (int i = 0; i < joueursList.size(); i++) {
                 for (int j = 0; j < 7; j++) {
                     mainJoueur.add(paquetCartes.remove(NombreAleatoire.getNombreRandom(paquetCartes.size(), 1)));
                 }
                 joueursList.get(i).setMainCartes(mainJoueur);
+                Log.i("Joueur", joueursList.get(i).getNom());
+                Log.i("Main Joueur", String.valueOf(joueursList.get(i).getMainCartes()));
             }
             intentNombre = 0;
             lancementTour(joueursList, intentNombre);
