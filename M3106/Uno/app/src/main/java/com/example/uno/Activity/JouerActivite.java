@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JouerActivite extends AppCompatActivity {
-    private List<Cartes> paquetCartes = new ArrayList<>();
+    private static List<Cartes>  paquetCartes = new ArrayList<>();
     private List<Cartes> defausse = new ArrayList<>();
     private List<Cartes> mainJoueur = new ArrayList<>();
 
@@ -49,6 +49,8 @@ public class JouerActivite extends AppCompatActivity {
 
         int intentNombre = intentRecup.getIntExtra("Position", -1);
         List<Joueur> joueursList = CreationActivity.joueurs;
+        joueursList.add(new Joueur("Vincent", 0));
+        joueursList.add(new Joueur("Cyrielle", 0));
         findetour.setVisibility(View.INVISIBLE);
         recyclerView = findViewById(R.id.recyclerViewCartes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
@@ -56,12 +58,14 @@ public class JouerActivite extends AppCompatActivity {
         if (intentNombre == -1) {
             initList();
             for (int i = 0; i < joueursList.size(); i++) {
+                mainJoueur.clear();
                 for (int j = 0; j < 7; j++) {
                     mainJoueur.add(paquetCartes.remove(NombreAleatoire.getNombreRandom(paquetCartes.size(), 1)));
                 }
                 joueursList.get(i).setMainCartes(mainJoueur);
             }
             defausse.add(paquetCartes.remove(NombreAleatoire.getNombreRandom(paquetCartes.size(), 1)));
+            Log.i("Defausse", String.valueOf(defausse.size()));
             intentNombre = 0;
             lancementTour(joueursList, intentNombre);
         } else {
@@ -79,126 +83,127 @@ public class JouerActivite extends AppCompatActivity {
     }
 
     private void initList() {
-        paquetCartes.add(new Cartes("0", Couleur.Bleu));
-        paquetCartes.add(new Cartes("1", Couleur.Bleu));
-        paquetCartes.add(new Cartes("2", Couleur.Bleu));
-        paquetCartes.add(new Cartes("3", Couleur.Bleu));
-        paquetCartes.add(new Cartes("4", Couleur.Bleu));
-        paquetCartes.add(new Cartes("5", Couleur.Bleu));
-        paquetCartes.add(new Cartes("6", Couleur.Bleu));
-        paquetCartes.add(new Cartes("7", Couleur.Bleu));
-        paquetCartes.add(new Cartes("8", Couleur.Bleu));
-        paquetCartes.add(new Cartes("9", Couleur.Bleu));
-        paquetCartes.add(new Cartes("1", Couleur.Bleu));
-        paquetCartes.add(new Cartes("2", Couleur.Bleu));
-        paquetCartes.add(new Cartes("3", Couleur.Bleu));
-        paquetCartes.add(new Cartes("4", Couleur.Bleu));
-        paquetCartes.add(new Cartes("5", Couleur.Bleu));
-        paquetCartes.add(new Cartes("6", Couleur.Bleu));
-        paquetCartes.add(new Cartes("7", Couleur.Bleu));
-        paquetCartes.add(new Cartes("8", Couleur.Bleu));
-        paquetCartes.add(new Cartes("9", Couleur.Bleu));
-        paquetCartes.add(new Cartes("+2", Couleur.Bleu));
-        paquetCartes.add(new Cartes("+2", Couleur.Bleu));
-        paquetCartes.add(new Cartes(Couleur.Bleu, R.drawable.ic_action_bin));
-        paquetCartes.add(new Cartes(Couleur.Bleu, R.drawable.ic_action_bin));
-        paquetCartes.add(new Cartes(Couleur.Bleu, R.drawable.ic_action_rotate));
-        paquetCartes.add(new Cartes(Couleur.Bleu, R.drawable.ic_action_rotate));
+        paquetCartes.add(new Cartes("0", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("1", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("2", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("3", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("4", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("5", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("6", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("7", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("8", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("9", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("1", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("2", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("3", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("4", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("5", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("6", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("7", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("8", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("9", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("+2", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("+2", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("ChangeSens", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("ChangeSens", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("PasseTour", Couleur.Bleu, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("PasseTour", Couleur.Bleu, R.drawable.bleu_plus_2, false));
 
 
-        paquetCartes.add(new Cartes("0", Couleur.Vert));
-        paquetCartes.add(new Cartes("1", Couleur.Vert));
-        paquetCartes.add(new Cartes("2", Couleur.Vert));
-        paquetCartes.add(new Cartes("3", Couleur.Vert));
-        paquetCartes.add(new Cartes("4", Couleur.Vert));
-        paquetCartes.add(new Cartes("5", Couleur.Vert));
-        paquetCartes.add(new Cartes("6", Couleur.Vert));
-        paquetCartes.add(new Cartes("7", Couleur.Vert));
-        paquetCartes.add(new Cartes("8", Couleur.Vert));
-        paquetCartes.add(new Cartes("9", Couleur.Vert));
-        paquetCartes.add(new Cartes("1", Couleur.Vert));
-        paquetCartes.add(new Cartes("2", Couleur.Vert));
-        paquetCartes.add(new Cartes("3", Couleur.Vert));
-        paquetCartes.add(new Cartes("4", Couleur.Vert));
-        paquetCartes.add(new Cartes("5", Couleur.Vert));
-        paquetCartes.add(new Cartes("6", Couleur.Vert));
-        paquetCartes.add(new Cartes("7", Couleur.Vert));
-        paquetCartes.add(new Cartes("8", Couleur.Vert));
-        paquetCartes.add(new Cartes("9", Couleur.Vert));
-        paquetCartes.add(new Cartes("+2", Couleur.Vert));
-        paquetCartes.add(new Cartes("+2", Couleur.Vert));
-        paquetCartes.add(new Cartes(Couleur.Vert, R.drawable.ic_action_bin));
-        paquetCartes.add(new Cartes(Couleur.Vert, R.drawable.ic_action_bin));
-        paquetCartes.add(new Cartes(Couleur.Vert, R.drawable.ic_action_rotate));
-        paquetCartes.add(new Cartes(Couleur.Vert, R.drawable.ic_action_rotate));
+        paquetCartes.add(new Cartes("0", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("1", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("2", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("3", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("4", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("5", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("6", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("7", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("8", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("9", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("1", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("2", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("3", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("4", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("5", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("6", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("7", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("8", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("9", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("+2", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("+2", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("ChangeSens", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("ChangeSens", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("PasseTour", Couleur.Vert, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("PasseTour", Couleur.Vert, R.drawable.bleu_plus_2, false));
 
 
-        paquetCartes.add(new Cartes("0", Couleur.Rouge));
-        paquetCartes.add(new Cartes("1", Couleur.Rouge));
-        paquetCartes.add(new Cartes("2", Couleur.Rouge));
-        paquetCartes.add(new Cartes("3", Couleur.Rouge));
-        paquetCartes.add(new Cartes("4", Couleur.Rouge));
-        paquetCartes.add(new Cartes("5", Couleur.Rouge));
-        paquetCartes.add(new Cartes("6", Couleur.Rouge));
-        paquetCartes.add(new Cartes("7", Couleur.Rouge));
-        paquetCartes.add(new Cartes("8", Couleur.Rouge));
-        paquetCartes.add(new Cartes("9", Couleur.Rouge));
-        paquetCartes.add(new Cartes("1", Couleur.Rouge));
-        paquetCartes.add(new Cartes("2", Couleur.Rouge));
-        paquetCartes.add(new Cartes("3", Couleur.Rouge));
-        paquetCartes.add(new Cartes("4", Couleur.Rouge));
-        paquetCartes.add(new Cartes("5", Couleur.Rouge));
-        paquetCartes.add(new Cartes("6", Couleur.Rouge));
-        paquetCartes.add(new Cartes("7", Couleur.Rouge));
-        paquetCartes.add(new Cartes("8", Couleur.Rouge));
-        paquetCartes.add(new Cartes("9", Couleur.Rouge));
-        paquetCartes.add(new Cartes("+2", Couleur.Rouge));
-        paquetCartes.add(new Cartes("+2", Couleur.Rouge));
-        paquetCartes.add(new Cartes(Couleur.Rouge, R.drawable.ic_action_bin));
-        paquetCartes.add(new Cartes(Couleur.Rouge, R.drawable.ic_action_bin));
-        paquetCartes.add(new Cartes(Couleur.Rouge, R.drawable.ic_action_rotate));
-        paquetCartes.add(new Cartes(Couleur.Rouge, R.drawable.ic_action_rotate));
+        paquetCartes.add(new Cartes("0", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("1", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("2", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("3", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("4", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("5", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("6", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("7", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("8", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("9", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("1", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("2", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("3", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("4", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("5", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("6", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("7", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("8", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("9", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("+2", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("+2", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("ChangeSens", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("ChangeSens", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("PasseTour", Couleur.Rouge, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("PasseTour", Couleur.Rouge, R.drawable.bleu_plus_2, false));
 
 
-        paquetCartes.add(new Cartes("0", Couleur.Jaune));
-        paquetCartes.add(new Cartes("1", Couleur.Jaune));
-        paquetCartes.add(new Cartes("2", Couleur.Jaune));
-        paquetCartes.add(new Cartes("3", Couleur.Jaune));
-        paquetCartes.add(new Cartes("4", Couleur.Jaune));
-        paquetCartes.add(new Cartes("5", Couleur.Jaune));
-        paquetCartes.add(new Cartes("6", Couleur.Jaune));
-        paquetCartes.add(new Cartes("7", Couleur.Jaune));
-        paquetCartes.add(new Cartes("8", Couleur.Jaune));
-        paquetCartes.add(new Cartes("9", Couleur.Jaune));
-        paquetCartes.add(new Cartes("1", Couleur.Jaune));
-        paquetCartes.add(new Cartes("2", Couleur.Jaune));
-        paquetCartes.add(new Cartes("3", Couleur.Jaune));
-        paquetCartes.add(new Cartes("4", Couleur.Jaune));
-        paquetCartes.add(new Cartes("5", Couleur.Jaune));
-        paquetCartes.add(new Cartes("6", Couleur.Jaune));
-        paquetCartes.add(new Cartes("7", Couleur.Jaune));
-        paquetCartes.add(new Cartes("8", Couleur.Jaune));
-        paquetCartes.add(new Cartes("9", Couleur.Jaune));
-        paquetCartes.add(new Cartes("+2", Couleur.Jaune));
-        paquetCartes.add(new Cartes("+2", Couleur.Jaune));
-        paquetCartes.add(new Cartes(Couleur.Jaune, R.drawable.ic_action_bin));
-        paquetCartes.add(new Cartes(Couleur.Jaune, R.drawable.ic_action_bin));
-        paquetCartes.add(new Cartes(Couleur.Jaune, R.drawable.ic_action_rotate));
-        paquetCartes.add(new Cartes(Couleur.Jaune, R.drawable.ic_action_rotate));
+        paquetCartes.add(new Cartes("0", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("1", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("2", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("3", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("4", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("5", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("6", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("7", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("8", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("9", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("1", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("2", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("3", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("4", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("5", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("6", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("7", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("8", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("9", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("+2", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("+2", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("ChangeSens", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("ChangeSens", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("PasseTour", Couleur.Jaune, R.drawable.bleu_plus_2, false));
+        paquetCartes.add(new Cartes("PasseTour", Couleur.Jaune, R.drawable.bleu_plus_2, false));
 
-        paquetCartes.add(new Cartes("+4", Couleur.Noire));
-        paquetCartes.add(new Cartes("+4", Couleur.Noire));
-        paquetCartes.add(new Cartes("+4", Couleur.Noire));
-        paquetCartes.add(new Cartes("+4", Couleur.Noire));
+        paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.bleu_plus_2, true));
+        paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.bleu_plus_2, true));
+        paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.bleu_plus_2, true));
+        paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.bleu_plus_2, true));
 
-        paquetCartes.add(new Cartes(Couleur.Noire, R.drawable.choix_couleur));
-        paquetCartes.add(new Cartes(Couleur.Noire, R.drawable.choix_couleur));
-        paquetCartes.add(new Cartes(Couleur.Noire, R.drawable.choix_couleur));
-        paquetCartes.add(new Cartes(Couleur.Noire, R.drawable.choix_couleur));
+        paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.bleu_plus_2, true));
+        paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.bleu_plus_2, true));
+        paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.bleu_plus_2, true));
+        paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.bleu_plus_2, true));
     }
 
     private void affichageCarte(List<Joueur> joueursList, int i) {
         List<Cartes> mainjoueur = joueursList.get(i).getMainCartes();
+        defausse.add(paquetCartes.remove(NombreAleatoire.getNombreRandom(paquetCartes.size(), 1)));
         adaptateurMainJoueur = new AdaptateurMainJoueur(mainjoueur, defausse);
         recyclerView.setAdapter(adaptateurMainJoueur);
     }

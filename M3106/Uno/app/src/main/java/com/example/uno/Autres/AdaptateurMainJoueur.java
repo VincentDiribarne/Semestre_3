@@ -38,7 +38,7 @@ public class AdaptateurMainJoueur extends RecyclerView.Adapter<ViewHolderMainJou
     public void onBindViewHolder(@NonNull ViewHolderMainJoueur holder, int position) {
         Cartes cartes = mainJoueur.get(position);
         Cartes defausses = defausse.get(defausse.size() - 1);
-        holder.view.setBackgroundResource(R.drawable.background_noir);
+        holder.view.setBackgroundResource(mainJoueur.get(position).getBackgroundCarte());
 
         holder.itemView.setOnClickListener(v -> {
             Couleur couleurCartes = cartes.getCouleur();
@@ -47,7 +47,7 @@ public class AdaptateurMainJoueur extends RecyclerView.Adapter<ViewHolderMainJou
             String numeroDefausse = defausses.getNumero();
             String numeroCartes = cartes.getNumero();
 
-            if (cartes.getCarteSpe() != 1) {
+            if (cartes.isCarteSpe() == false) {
                 if (couleurCartes != couleurDefausse || numeroCartes != numeroDefausse) {
                     return;
                 }

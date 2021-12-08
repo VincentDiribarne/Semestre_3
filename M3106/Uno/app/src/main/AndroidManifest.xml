@@ -11,7 +11,7 @@
         android:theme="@style/Theme.Uno">
 
         <activity
-            android:name=".Activity.AccueilActivity"
+            android:name=".Activity.JouerActivite"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,7 +50,7 @@
         </activity>
 
         <activity
-            android:name=".Activity.JouerActivite"
+            android:name=".Activity.AccueilActivity"
             android:exported="true">
         </activity>
 
