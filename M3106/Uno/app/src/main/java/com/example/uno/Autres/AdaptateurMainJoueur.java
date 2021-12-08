@@ -1,23 +1,29 @@
 package com.example.uno.Autres;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.uno.Activity.FinActivity;
+import com.example.uno.Activity.MainActivity;
 import com.example.uno.R;
 
 import java.util.List;
 
 public class AdaptateurMainJoueur extends RecyclerView.Adapter<ViewHolderMainJoueur> {
     public List<Cartes> mainJoueur;
+    private List<Cartes> defausse;
 
-    public AdaptateurMainJoueur(List<Cartes> cartesList) {
+    public AdaptateurMainJoueur(List<Cartes> cartesList, List<Cartes> defausse) {
         this.mainJoueur = cartesList;
+        this.defausse = defausse;
     }
 
     @NonNull
@@ -30,47 +36,24 @@ public class AdaptateurMainJoueur extends RecyclerView.Adapter<ViewHolderMainJou
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolderMainJoueur holder, int position) {
-        Log.i("Couleur_Cartes", String.valueOf(mainJoueur.get(position).getCouleur()));
-        Log.i("Couleur_Cartes", String.valueOf(mainJoueur.get(position).getNumero()));
         Cartes cartes = mainJoueur.get(position);
-        switch (cartes.getCouleur()) {
-            case Jaune:
-                Log.i("Couleur", "Jaune");
-                holder.view.setBackgroundColor(R.color.jauneUno);
-                break;
-
-            /*case Bleu:
-                Log.i("Couleur", "Bleu");
-                holder.view.setBackgroundColor(R.color.bleuUno);
-                break;*/
-
-            case Vert:
-                Log.i("Couleur", "Vert");
-                holder.view.setBackgroundColor(R.color.vertUno);
-                break;
-
-            case Noire:
-                Log.i("Couleur", "Noire");
-                holder.view.setBackgroundColor(R.color.noirUno);
-                break;
-
-            case Rouge:
-                Log.i("Couleur", "Rouge");
-                holder.view.setBackgroundColor(R.color.redUno);
-                break;
-        }
-
-        if (cartes.getCarteSpe() != 0) {
-            holder.imageView.setVisibility(View.VISIBLE);
-            holder.imageView.setImageResource(cartes.getCarteSpe());
-        } else {
-            holder.text1.setText(cartes.getNumero());
-            holder.text2.setText(cartes.getNumero());
-            holder.text3.setText(cartes.getNumero());
-        }
+        Cartes defausses = defausse.get(defausse.size() - 1);
+        holder.view.setBackgroundResource(R.drawable.background_noir);
 
         holder.itemView.setOnClickListener(v -> {
+            Couleur couleurCartes = cartes.getCouleur();
+            Couleur couleurDefausse = defausses.getCouleur();
 
+            String numeroDefausse = defausses.getNumero();
+            String numeroCartes = cartes.getNumero();
+
+            if (cartes.getCarteSpe() != 1) {
+                if (couleurCartes != couleurDefausse || numeroCartes != numeroDefausse) {
+                    return;
+                }
+            }
+
+            defausse.add(mainJoueur.remove(position));
         });
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,8 +51,7 @@ public class JouerActivite extends AppCompatActivity {
         List<Joueur> joueursList = CreationActivity.joueurs;
         findetour.setVisibility(View.INVISIBLE);
         recyclerView = findViewById(R.id.recyclerViewCartes);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         if (intentNombre == -1) {
             initList();
@@ -60,9 +60,8 @@ public class JouerActivite extends AppCompatActivity {
                     mainJoueur.add(paquetCartes.remove(NombreAleatoire.getNombreRandom(paquetCartes.size(), 1)));
                 }
                 joueursList.get(i).setMainCartes(mainJoueur);
-                Log.i("Joueur", joueursList.get(i).getNom());
-                Log.i("Main Joueur", String.valueOf(joueursList.get(i).getMainCartes()));
             }
+            defausse.add(paquetCartes.remove(NombreAleatoire.getNombreRandom(paquetCartes.size(), 1)));
             intentNombre = 0;
             lancementTour(joueursList, intentNombre);
         } else {
@@ -200,7 +199,7 @@ public class JouerActivite extends AppCompatActivity {
 
     private void affichageCarte(List<Joueur> joueursList, int i) {
         List<Cartes> mainjoueur = joueursList.get(i).getMainCartes();
-        adaptateurMainJoueur = new AdaptateurMainJoueur(mainjoueur);
+        adaptateurMainJoueur = new AdaptateurMainJoueur(mainjoueur, defausse);
         recyclerView.setAdapter(adaptateurMainJoueur);
     }
 
