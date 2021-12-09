@@ -58,7 +58,7 @@ public class AdaptateurMainJoueur extends RecyclerView.Adapter<ViewHolderMainJou
 
             if (cartes.isCarteSpe() == false) {
                 //Log.i("Couleur", "Je suis rentré");
-                if (cartes.getCouleur() == defausse.getDefausse().get(position).getCouleur() /*|| numeroCartes == numeroDefausse*/) {
+                if (cartes.getCouleur() == defausse.getDefausse().get(defausse.getDefausse().size() - 1).getCouleur() /*|| numeroCartes == numeroDefausse*/) {
                     //Log.i("Couleur", "Je suis bon");
                     getDefausse.add(getMainJoueur.remove(position));
                     defausse.setDefausse(getDefausse);

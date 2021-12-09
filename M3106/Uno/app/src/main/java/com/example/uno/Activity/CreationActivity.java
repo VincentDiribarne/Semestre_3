@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uno.Autres.AdapteurJoueur;
 import com.example.uno.Autres.Joueur;
-import com.example.uno.Autres.ListJoueur;
 import com.example.uno.R;
 
 import java.util.ArrayList;
@@ -26,8 +25,8 @@ public class CreationActivity extends AppCompatActivity {
     private TextView pseudo;
     private Button valider;
     private RecyclerView recyclerView;
-    public ListJoueur joueurs = new ListJoueur();
-    public List<Joueur> joueurList = new ArrayList<>();
+    private ImageView ajout;
+    public static List<Joueur> joueurList = new ArrayList<>();
     private AdapteurJoueur adapteurJoueur;
 
     @Override
@@ -35,7 +34,7 @@ public class CreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation);
 
-        ImageView ajout = findViewById(R.id.ajout);
+        ajout = findViewById(R.id.ajout);
         pseudo = findViewById(R.id.pseudoEditText);
         valider = findViewById(R.id.jouer);
 
@@ -47,13 +46,7 @@ public class CreationActivity extends AppCompatActivity {
         interaction();
         ajout.setOnClickListener(v -> ajout());
 
-        valider.setOnClickListener(v -> {
-            joueurs.setListJoueur(joueurList);
-
-            Intent intent = new Intent(this, LancementPartieActivity.class);
-            intent.putExtra("ListJoueur", joueurs);
-            startActivity(intent);
-        });
+        valider.setOnClickListener(v -> startActivity(new Intent(this, LancementPartieActivity.class)));
     }
 
     public void interaction() {
@@ -89,8 +82,14 @@ public class CreationActivity extends AppCompatActivity {
             return;
         }
 
-        if(pseudoText.length() > 30) {
+        if (pseudoText.length() > 30) {
             pseudo.setError("Trop long, 30 caractères max");
+            pseudo.setText("");
+            return;
+        }
+
+        if(pseudoText.length() < 4) {
+            pseudo.setError("Trop court, 5 caractères minimum");
             pseudo.setText("");
             return;
         }
