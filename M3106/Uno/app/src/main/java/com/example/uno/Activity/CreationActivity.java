@@ -45,7 +45,7 @@ public class CreationActivity extends AppCompatActivity {
         interaction();
         ajout.setOnClickListener(v -> ajout());
 
-        valider.setOnClickListener(v -> startActivity(new Intent(this, JouerActivite.class)));
+        valider.setOnClickListener(v -> startActivity(new Intent(this, LancementPartieActivity.class)));
     }
 
     public void interaction() {

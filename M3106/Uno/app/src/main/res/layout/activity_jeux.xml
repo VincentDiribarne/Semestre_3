@@ -9,6 +9,8 @@
         android:id="@+id/Pseudo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
         android:textColor="?colorBleu"
         android:textSize="20sp"
@@ -21,8 +23,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCartes"
-        android:layout_width="394dp"
-        android:layout_height="431dp"
+        android:layout_width="395dp"
+        android:layout_height="257dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,26 +36,26 @@
 
     <ImageView
         android:id="@+id/defausse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
         android:layout_marginStart="24dp"
-        android:background="@drawable/choix_couleur"
+        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewCartes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toEndOf="@+id/pioche"
-        app:layout_constraintTop_toBottomOf="@+id/Pseudo" />
+        app:layout_constraintTop_toBottomOf="@+id/Pseudo"
+        app:layout_constraintVertical_bias="0.357" />
 
     <ImageView
         android:id="@+id/pioche"
-        android:layout_width="151dp"
-        android:layout_height="127dp"
-        android:background="@drawable/uno_logo"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="28dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewCartes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Pseudo" />
+        app:layout_constraintTop_toBottomOf="@+id/Pseudo"
+        app:layout_constraintVertical_bias="0.357" />
 
     <Button
         android:id="@+id/contreuno"
