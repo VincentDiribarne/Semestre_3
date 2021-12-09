@@ -20,11 +20,13 @@ import com.example.uno.Autres.Cartes;
 import com.example.uno.Autres.Couleur;
 import com.example.uno.Autres.Defausse;
 import com.example.uno.Autres.Joueur;
+import com.example.uno.Autres.ListJoueur;
 import com.example.uno.Autres.MainJoueur;
 import com.example.uno.Autres.NombreAleatoire;
 import com.example.uno.Autres.PaquetCartes;
 import com.example.uno.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +34,14 @@ public class JouerActivite extends AppCompatActivity {
     private Defausse defausse = LancementPartieActivity.defausse;
     private PaquetCartes paquetCartes = LancementPartieActivity.paquetCartes;
     private List<Cartes> mainJoueur = LancementPartieActivity.mainJoueur;
-    private List<Joueur> joueursList = CreationActivity.joueurs;
+    private ListJoueur joueursList;
 
     private TextView pseudoJoueur;
     private Button findetour;
     private ImageView pioche, defausseImageView;
     private RecyclerView recyclerView;
     private AdaptateurMainJoueur adaptateurMainJoueur;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,21 +51,30 @@ public class JouerActivite extends AppCompatActivity {
         Intent intent = getIntent();
         int intentRecup = intent.getIntExtra("Position", 0);
 
+        Intent intentSerializable = getIntent();
+        ListJoueur intentRecupList = (ListJoueur) intentSerializable.getSerializableExtra("ListJoueur");
+
+        joueursList = intentRecupList;
+
         pseudoJoueur = findViewById(R.id.Pseudo);
         findetour = findViewById(R.id.finDeTour);
         pioche = findViewById(R.id.pioche);
         defausseImageView = findViewById(R.id.defausse);
         recyclerView = findViewById(R.id.recyclerViewCartes);
 
-
-        Log.e("Erreur", String.valueOf(defausse.getDefausse().size()));
         defausseImageView.setBackgroundResource(defausse.getDefausse().get(defausse.getDefausse().size() - 1).getBackgroundCarte());
         pioche.setBackgroundResource(R.drawable.choix_couleur);
 
-        Log.e("Erreur", "Intent --> " +intentRecup);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        affichageCarte(intentRecup);
+        Log.i("IntentRecup", String.valueOf(intentRecup));
+        Log.i("Taille Liste", String.valueOf(joueursList.getListJoueur().size()));
+
+        Log.i("Taille de la main", String.valueOf(paquetCartes.getPaquetDeCartes().size()));
+
+        List<Cartes> mainjoueur = joueursList.getListJoueur().get(intentRecup).getMainCartes();
+        adaptateurMainJoueur = new AdaptateurMainJoueur(mainjoueur);
+        recyclerView.setAdapter(adaptateurMainJoueur);
+
         affichageTexte(intentRecup);
 
         pioche.setOnClickListener(v -> {
@@ -71,38 +83,32 @@ public class JouerActivite extends AppCompatActivity {
 
         findetour.setOnClickListener(v -> {
             int intentRecupFinal = intentRecup;
-            lancementTour(intentRecupFinal++);
+            lancementTour(intentRecupFinal, joueursList);
         });
     }
 
-    private void affichageCarte(int i) {
-        Log.i("Erreur", "Je suis rentré dans l'adaptateur");
-        List<Cartes> mainjoueur = joueursList.get(i).getMainCartes();
-        Log.i("Erreur", "Main du joueur " + mainjoueur.size());
-        adaptateurMainJoueur = new AdaptateurMainJoueur(mainjoueur);
-        recyclerView.setAdapter(adaptateurMainJoueur);
-    }
-
     private void affichageTexte(int i) {
-        pseudoJoueur.setText(joueursList.get(i).getNom());
+        pseudoJoueur.setText(joueursList.getListJoueur().get(i).getNom());
     }
 
-    public void lancementTour(int i) {
+    public void lancementTour(int i, ListJoueur intentRecup) {
         setContentView(R.layout.page_noir);
         new AlertDialog.Builder(this)
                 .setTitle("A qui le tour ?")
-                .setMessage("C'est au tour de \"" + joueursList.get(i+1).getNom() + "\" de jouer")
+                .setMessage("C'est au tour de \"" + joueursList.getListJoueur().get(i + 1).getNom() + "\" de jouer")
                 .setIcon(R.drawable.uno_logo)
                 .setPositiveButton(R.string.commencer, (dialog, which) -> {
-                    Intent intent = new Intent(this, JouerActivite.class);
-                    int j = i;
-                    j++;
 
-                    if (j > joueursList.size()) {
-                        j = 0;
+                    /*Intent intent = new Intent(this, JouerActivite.class);
+                    int finalI = i;
+                    finalI++;
+
+                    if (finalI >= joueursList.getListJoueur().size()) {
+                        finalI = 0;
                     }
-                    intent.putExtra("Position", j);
-                    startActivity(intent);
+                    intent.putExtra("Position", finalI);
+                    intent.putExtra("ListJoueur", (Serializable) intentRecup);
+                    startActivity(intent);*/
                 })
                 .show();
     }

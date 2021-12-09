@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uno.Autres.AdapteurJoueur;
 import com.example.uno.Autres.Joueur;
+import com.example.uno.Autres.ListJoueur;
 import com.example.uno.R;
 
 import java.util.ArrayList;
@@ -25,7 +26,8 @@ public class CreationActivity extends AppCompatActivity {
     private TextView pseudo;
     private Button valider;
     private RecyclerView recyclerView;
-    public static List<Joueur> joueurs = new ArrayList<>();
+    public ListJoueur joueurs = new ListJoueur();
+    public List<Joueur> joueurList = new ArrayList<>();
     private AdapteurJoueur adapteurJoueur;
 
     @Override
@@ -39,13 +41,19 @@ public class CreationActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapteurJoueur = new AdapteurJoueur(joueurs);
+        adapteurJoueur = new AdapteurJoueur(joueurList);
         recyclerView.setAdapter(adapteurJoueur);
 
         interaction();
         ajout.setOnClickListener(v -> ajout());
 
-        valider.setOnClickListener(v -> startActivity(new Intent(this, LancementPartieActivity.class)));
+        valider.setOnClickListener(v -> {
+            joueurs.setListJoueur(joueurList);
+
+            Intent intent = new Intent(this, LancementPartieActivity.class);
+            intent.putExtra("ListJoueur", joueurs);
+            startActivity(intent);
+        });
     }
 
     public void interaction() {
@@ -59,10 +67,10 @@ public class CreationActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int pos = viewHolder.getAdapterPosition();
-                joueurs.remove(pos);
+                joueurList.remove(pos);
                 adapteurJoueur.notifyItemRemoved(pos);
 
-                if (joueurs.size() > 1) {
+                if (joueurList.size() > 1) {
                     valider.setVisibility(View.VISIBLE);
                 } else {
                     valider.setVisibility(View.INVISIBLE);
@@ -87,12 +95,12 @@ public class CreationActivity extends AppCompatActivity {
             return;
         }
 
-        joueurs.add(new Joueur(pseudoText, 0));
+        joueurList.add(new Joueur(pseudoText, 0));
         pseudo.setText("");
-        adapteurJoueur.notifyItemInserted(joueurs.size() + 1);
+        adapteurJoueur.notifyItemInserted(joueurList.size() + 1);
         //TODO Met automatiquement en bas quand le joueur ajoute un message (TD2)
 
-        if (joueurs.size() > 1) {
+        if (joueurList.size() > 1) {
             valider.setVisibility(View.VISIBLE);
         }
     }
