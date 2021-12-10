@@ -8,6 +8,7 @@ import java.util.List;
 public class PaquetCartes {
     private List<Cartes> paquetCartes = new ArrayList<>();
 
+    //Créer le paquet de cartes
     public PaquetCartes() {
         paquetCartes.add(new Cartes("1", Couleur.Bleu, R.drawable.bleu_un, false));
         paquetCartes.add(new Cartes("2", Couleur.Bleu, R.drawable.bleu_deux, false));
@@ -112,7 +113,7 @@ public class PaquetCartes {
         paquetCartes.add(new Cartes("PasseTour", Couleur.Jaune, R.drawable.jaune_passe_tour, false));
         paquetCartes.add(new Cartes("PasseTour", Couleur.Jaune, R.drawable.jaune_passe_tour, false));
 
-        paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.noir_plus_quatre, true));
+        /*paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.noir_plus_quatre, true));
         paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.noir_plus_quatre, true));
         paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.noir_plus_quatre, true));
         paquetCartes.add(new Cartes("+4", Couleur.Noire, R.drawable.noir_plus_quatre, true));
@@ -120,7 +121,7 @@ public class PaquetCartes {
         paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.noir_change_couleur, true));
         paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.noir_change_couleur, true));
         paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.noir_change_couleur, true));
-        paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.noir_change_couleur, true));
+        paquetCartes.add(new Cartes("ChangeCouleur", Couleur.Noire, R.drawable.noir_change_couleur, true));*/
     }
 
     public List<Cartes> getPaquetDeCartes() {

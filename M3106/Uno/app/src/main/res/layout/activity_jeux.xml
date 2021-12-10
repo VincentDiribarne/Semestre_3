@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/finDeTour"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bouton_connection"
+        android:text="Fin de Tour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewCartes" />
+
     <TextView
         android:id="@+id/Pseudo"
         android:layout_width="wrap_content"
@@ -86,14 +97,28 @@
         app:layout_constraintStart_toEndOf="@+id/contreuno"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewCartes" />
 
-    <Button
-        android:id="@+id/finDeTour"
-        android:layout_width="130dp"
-        android:layout_height="50dp"
-        android:background="@drawable/bouton_connection"
-        android:text="Fin de Tour"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#000000"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewCartes" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:text="Une fois que vous avez cliqué sur une carte pensez à faire fin de tour"
+        app:layout_constraintBottom_toTopOf="@+id/defausse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toEndOf="@+id/Pseudo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.355" />
 </androidx.constraintlayout.widget.ConstraintLayout>

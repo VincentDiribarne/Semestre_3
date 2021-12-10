@@ -26,18 +26,16 @@ public class LancementPartieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        joueursList.add(new Joueur("Cyrielle", 0));
-        joueursList.add(new Joueur("Vincent", 0));
         for (int i = 0; i < joueursList.size(); i++) {
-            Log.i("Taille de la main", i + " - " + paquetCartes.getPaquetDeCartes().size());
             mainJoueur.clear();
             for (int j = 0; j < 7; j++) {
+                //Ajout des cartes dans la main du joueur
                 mainJoueur.add(paquetCartes.getPaquetDeCartes().remove(NombreAleatoire.getNombreRandom(paquetCartes.getPaquetDeCartes().size() - 1, 1)));
             }
             joueursList.get(i).setMainCartes(mainJoueur);
         }
 
+        //Ajout de la defausse
         defausse.getDefausse().add(paquetCartes.getPaquetDeCartes().remove(NombreAleatoire.getNombreRandom(paquetCartes.getPaquetDeCartes().size() - 1, 1)));
         startActivity(new Intent(this, JouerActivite.class));
     }

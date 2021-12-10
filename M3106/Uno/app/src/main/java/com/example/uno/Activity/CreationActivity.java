@@ -44,8 +44,10 @@ public class CreationActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapteurJoueur);
 
         interaction();
+        //Ajout de joueurs
         ajout.setOnClickListener(v -> ajout());
 
+        //Lancement de la partie
         valider.setOnClickListener(v -> startActivity(new Intent(this, LancementPartieActivity.class)));
     }
 
@@ -58,6 +60,7 @@ public class CreationActivity extends AppCompatActivity {
             }
 
             @Override
+            //Supprime si on swipe
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int pos = viewHolder.getAdapterPosition();
                 joueurList.remove(pos);
@@ -75,6 +78,7 @@ public class CreationActivity extends AppCompatActivity {
         helper.attachToRecyclerView(recyclerView);
     }
 
+    //Ajoute un joueur selon des conditions
     public void ajout() {
         String pseudoText = pseudo.getText().toString();
         if (pseudoText.isEmpty()) {
@@ -96,6 +100,7 @@ public class CreationActivity extends AppCompatActivity {
 
         joueurList.add(new Joueur(pseudoText, 0));
         pseudo.setText("");
+        //Modifie l'adaptateur
         adapteurJoueur.notifyItemInserted(joueurList.size() + 1);
         //TODO Met automatiquement en bas quand le joueur ajoute un message (TD2)
 

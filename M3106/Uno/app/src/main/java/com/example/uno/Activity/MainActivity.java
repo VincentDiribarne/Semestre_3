@@ -30,9 +30,4 @@ public class MainActivity extends AppCompatActivity {
             );
         }
     }
-
-    public void start() {
-        Intent intent = new Intent();
-        startActivity(intent);
-    }
 }

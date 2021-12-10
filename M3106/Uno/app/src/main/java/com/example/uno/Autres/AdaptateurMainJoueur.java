@@ -1,6 +1,5 @@
 package com.example.uno.Autres;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +7,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.uno.Activity.JouerActivite;
 import com.example.uno.Activity.LancementPartieActivity;
 import com.example.uno.R;
 
 import java.util.List;
 
 public class AdaptateurMainJoueur extends RecyclerView.Adapter<ViewHolderMainJoueur> {
-    private MainJoueur mainJoueur = new MainJoueur();
+    private List<Cartes> mainJoueur;
     private Defausse defausse = LancementPartieActivity.defausse;
+    private JouerActivite jouerActivite = new JouerActivite();
 
     public AdaptateurMainJoueur(List<Cartes> cartesList) {
-        this.mainJoueur.setMainJoueur(cartesList);
+        this.mainJoueur = cartesList;
     }
 
     @NonNull
@@ -30,58 +31,27 @@ public class AdaptateurMainJoueur extends RecyclerView.Adapter<ViewHolderMainJou
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderMainJoueur holder, int position) {
-        holder.view.setBackgroundResource(mainJoueur.getMainJoueur().get(position).getBackgroundCarte());
+        holder.view.setBackgroundResource(mainJoueur.get(position).getBackgroundCarte());
 
-        Cartes cartes = mainJoueur.getMainJoueur().get(position);
-
-        List<Cartes> getMainJoueur = mainJoueur.getMainJoueur();
+        Cartes cartes = mainJoueur.get(position);
         List<Cartes> getDefausse = defausse.getDefausse();
 
-        //Log.i("Couleur", "Nombre de carte dans la main " + getMainJoueur.size());
-
+        //Enleve la carte de la liste selon une condition
         holder.itemView.setOnClickListener(v -> {
-            Log.i("Erreur","Je suis cliqué");
-            /*Couleur couleurCartes = cartes.getCouleur();
-            Couleur couleurDefausse = getDefausse.get(position).getCouleur();
-
-            String numeroDefausse = getDefausse.get(position).getNumero();
-            String numeroCartes = cartes.getNumero();*/
-
-            /*Log.i("Couleur", "Nombre de carte dans la main " + getMainJoueur.size());
-            Log.i("Couleur", "Nombre de carte dans la defausse " + getDefausse.size());
-
-            Log.i("Couleur", "Couleur carte " +cartes.getCouleur());
-            Log.i("Couleur", "Couleur defausse " + defausse.getDefausse().get(position).getCouleur());
-
-            //Log.i("Couleur", "Numero cartes " + numeroCartes);
-            //Log.i("Couleur", "Numero defausse " +numeroDefausse);*/
-
-            if (cartes.isCarteSpe() == false) {
-                //Log.i("Couleur", "Je suis rentré");
-                if (cartes.getCouleur() == defausse.getDefausse().get(defausse.getDefausse().size() - 1).getCouleur() /*|| numeroCartes == numeroDefausse*/) {
-                    //Log.i("Couleur", "Je suis bon");
-                    getDefausse.add(getMainJoueur.remove(position));
-                    defausse.setDefausse(getDefausse);
-                    mainJoueur.setMainJoueur(getMainJoueur);
-                    return;
-                } else {
-                    //Log.i("Couleur", "Je suis pas bon");
-                }
-            } else {
-                //Log.i("Couleur", "Je suis bon");
-                getDefausse.add(getMainJoueur.remove(position));
+            if (cartes.getCouleur() == defausse.getDefausse().get(defausse.getDefausse().size() - 1).getCouleur() || cartes.getNumero() == defausse.getDefausse().get(defausse.getDefausse().size() - 1).getNumero()) {
+                getDefausse.add(mainJoueur.remove(position));
                 defausse.setDefausse(getDefausse);
-                mainJoueur.setMainJoueur(getMainJoueur);
-            }
 
-            //Log.i("Couleur", "Nombre de carte dans la main " + getMainJoueur.size());
-            //Log.i("Couleur", "Nombre de carte dans la defausse " + getDefausse.size());
+                jouerActivite.setMainJoueur(mainJoueur);
+                jouerActivite.setDefausse(defausse);
+
+                return;
+            }
         });
     }
 
-    //Ne pas modif
     @Override
     public int getItemCount() {
-        return mainJoueur.getMainJoueur().size();
+        return mainJoueur.size();
     }
 }
