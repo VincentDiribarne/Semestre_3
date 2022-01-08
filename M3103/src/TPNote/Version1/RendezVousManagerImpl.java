@@ -1,9 +1,9 @@
 package TPNote.Version1;
 
-import TPNote.Version1.Exception.RendezVousExistant;
 import myrendezvous.Rendezvous;
 import myrendezvous.RendezvousManager;
 import myrendezvous.exceptions.RendezvousNotFound;
+import myrendezvous.utils.StringComparator;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,8 +16,8 @@ public class RendezVousManagerImpl implements RendezvousManager {
         RendezVousImpl rendezVous = new RendezVousImpl(rdv.getTitle(), rdv.getDescription(), rdv.getDuration(), rdv.getTime());
         if (RendezVousManager.containsKey(rendezVous.getTag())) {
             try {
-                throw new RendezVousExistant();
-            } catch (RendezVousExistant e) {
+                throw new RendezvousNotFound("Le rendez vous n'a pas été trouvé");
+            } catch (RendezvousNotFound e) {
                 e.printStackTrace();
             }
         }
@@ -108,23 +108,62 @@ public class RendezVousManagerImpl implements RendezvousManager {
     }
 
     @Override
+    public List<Rendezvous> findRendezvousByTitleEqual(String string, Calendar calendar, Calendar calendar1) {
+        List<Rendezvous> rendezVousTitle = new ArrayList<>();
+
+        List<Rendezvous> RDV_Between = getRendezvousBetween(calendar, calendar1);
+        for (int i = 0; i < RDV_Between.size() - 1; i++) {
+            if (StringComparator.isEqualNoCase(RDV_Between.get(i).getTitle(), string)) {
+                rendezVousTitle.add(RDV_Between.get(i));
+            }
+        }
+        return rendezVousTitle;
+    }
+
+    @Override
+    public List<Rendezvous> findRendezvousByTitleALike(String title, Calendar calendar, Calendar calendar1) {
+        List<Rendezvous> rendezVousTitle = new ArrayList<>();
+
+        List<Rendezvous> RDV_Between = getRendezvousBetween(calendar, calendar1);
+        for (int i = 0; i < RDV_Between.size() - 1; i++) {
+            if (StringComparator.isAlike(title, RDV_Between.get(i).getTitle())) {
+                rendezVousTitle.add(RDV_Between.get(i));
+            }
+        }
+        return rendezVousTitle;
+    }
+
+    @Override
     public boolean hasOverlap(Calendar calendar, Calendar calendar1) {
         List<Rendezvous> rendezvous = getRendezvousBetween(calendar, calendar1);
-        return rendezvous.size() != 0;
+
+        for (Rendezvous rendezvous1 : rendezvous) {
+            Calendar tempsDebut = rendezvous1.getTime();
+            Calendar tempsFin = rendezvous1.getTime();
+            tempsFin.add(Calendar.MINUTE, rendezvous1.getDuration());
+            for (Rendezvous rendezvous2 : rendezvous) {
+                if (rendezvous2.getTime().before(tempsFin) || rendezvous2.getTime().after(tempsDebut)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     @Override
-    public Calendar findFreeTime(int i, Calendar calendar, Calendar calendar1) throws IllegalArgumentException {
-        return null;
-    }
+    public Calendar findFreeTime(int duration, Calendar calendar, Calendar calendar1) throws IllegalArgumentException {
+        List<Rendezvous> rendezvous = getRendezvousBetween(calendar, calendar1);
 
-    @Override
-    public List<Rendezvous> findRendezvousByTitleEqual(String s, Calendar calendar, Calendar calendar1) {
-        return null;
-    }
+        for (Rendezvous rendezvous1 : rendezvous) {
+            Calendar tempsDebut = rendezvous1.getTime();
+            Calendar tempsNecessaire = rendezvous1.getTime();
+            tempsNecessaire.add(Calendar.MINUTE, -rendezvous1.getDuration());
+            if (!hasOverlap(tempsNecessaire, tempsDebut)) {
+                return tempsNecessaire;
+            }
+        }
 
-    @Override
-    public List<Rendezvous> findRendezvousByTitleALike(String s, Calendar calendar, Calendar calendar1) {
-        return null;
+        throw new IllegalArgumentException("Aucun rendez vous n'a pu etre trouvé avec la durée fourni");
     }
 }

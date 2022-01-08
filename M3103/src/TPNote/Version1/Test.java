@@ -19,9 +19,5 @@ public class Test {
         test.headMap(3).clear();
         System.out.println(test.size());
         System.out.println(test.values());*/
-
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        System.out.println(today);
     }
 }
