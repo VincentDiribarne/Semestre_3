@@ -1,22 +1,23 @@
-package TPNote.Version1;
+package TPNote.Version2;
 
 import myrendezvous.Rendezvous;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 public class RendezVousImpl implements Rendezvous, Cloneable{
     private String description;
     private String title;
     private int duration;
     private Calendar time;
-    private Calendar tag;
+    private UUID tag;
 
     public RendezVousImpl(String description, String title, int duration, Calendar time) {
         this.title = title;
         this.description = description;
         this.duration = duration;
         this.time = (Calendar) time.clone();
-        this.tag = (Calendar) this.time.clone();
+        this.tag = UUID.randomUUID();
     }
 
     public RendezVousImpl(String title, int duration, Calendar time) {
@@ -24,7 +25,6 @@ public class RendezVousImpl implements Rendezvous, Cloneable{
         this.title = title;
         this.duration = duration;
         this.time = time;
-        this.tag = (Calendar) this.time.clone();
     }
 
     @Override
@@ -47,14 +47,13 @@ public class RendezVousImpl implements Rendezvous, Cloneable{
         return description;
     }
 
-    public Calendar getTag() {
+    public UUID getTag() {
         return tag;
     }
 
     @Override
     public void setTime(Calendar calendar) throws IllegalArgumentException {
         this.time = calendar;
-        this.tag = (Calendar) this.time.clone();
     }
 
     @Override
@@ -70,10 +69,6 @@ public class RendezVousImpl implements Rendezvous, Cloneable{
     @Override
     public void setDescription(String s) {
         this.description = s;
-    }
-
-    public void setTag(Calendar tag) {
-        this.tag = tag;
     }
 
     @Override

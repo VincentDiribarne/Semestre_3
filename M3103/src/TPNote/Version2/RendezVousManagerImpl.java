@@ -1,4 +1,4 @@
-package TPNote.Version1;
+package TPNote.Version2;
 
 import myrendezvous.Rendezvous;
 import myrendezvous.RendezvousManager;
@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class RendezVousManagerImpl implements RendezvousManager {
-    TreeMap<Calendar, RendezVousImpl> RendezVousManager = new TreeMap<>();
+    TreeMap<UUID, RendezVousImpl> RendezVousManager = new TreeMap<>();
 
     @Override
     public Rendezvous addRendezvous(Rendezvous rdv) {
@@ -22,7 +22,6 @@ public class RendezVousManagerImpl implements RendezvousManager {
             }
         }
         RendezVousManager.put(rendezVous.getTag(), rendezVous);
-        System.out.println(rendezVous.getTitle());
         return rendezVous.clone();
     }
 
@@ -32,7 +31,7 @@ public class RendezVousManagerImpl implements RendezvousManager {
             throw new IllegalArgumentException("L'argument fournit n'est pas le bon");
         }
 
-        Calendar tag = (((RendezVousImpl) rendezvous).getTag());
+        UUID tag = (((RendezVousImpl) rendezvous).getTag());
         if (!(RendezVousManager.containsKey(tag))) {
             throw new RendezvousNotFound("Le rendez-vous fournit n'existe pas");
         }
@@ -42,6 +41,7 @@ public class RendezVousManagerImpl implements RendezvousManager {
 
     @Override
     public boolean removeRendezvous(Calendar calendar) {
+
         if (!RendezVousManager.containsKey(calendar)) {
             return false;
         }
@@ -57,7 +57,7 @@ public class RendezVousManagerImpl implements RendezvousManager {
         }
 
         RendezVousImpl newRendezVous = ((RendezVousImpl) rendezvous);
-        Calendar tag = newRendezVous.getTag();
+        UUID tag = newRendezVous.getTag();
 
         if (!(RendezVousManager.containsKey(tag))) {
             throw new RendezvousNotFound("Le rendez-vous fournit n'existe pas");
